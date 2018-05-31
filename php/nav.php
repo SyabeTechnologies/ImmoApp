@@ -22,7 +22,7 @@
               </span>
               <i class="i i-stack">
               </i>
-              <span class="font-bold">locataire</span>
+              <span class="font-bold">Locataire</span>
             </a>
             <ul class="nav dk">
               
@@ -51,7 +51,7 @@
               </span>
               <i class="i i-stack">
               </i>
-              <span class="font-bold">contrat</span>
+              <span class="font-bold">Contrat</span>
             </a>
             <ul class="nav dk">
               
@@ -109,7 +109,7 @@
               </span>
               <i class="i i-users2">
               </i>
-              <span class="font-bold">location</span>
+              <span class="font-bold">Location</span>
             </a>
             <ul class="nav dk">
               
@@ -138,7 +138,7 @@
               </span>
               <i class="i i-stack">
               </i>
-              <span class="font-bold">paiement/loyer</span>
+              <span class="font-bold">Paiement/loyer</span>
             </a>
             <ul class="nav dk">
               
@@ -167,7 +167,7 @@
               </span>
               <i class="i i-stack">
               </i>
-              <span class="font-bold">bien_immobilier</span>
+              <span class="font-bold">Bien_immobilier</span>
             </a>
             <ul class="nav dk">
               
@@ -196,7 +196,7 @@
               </span>
               <i class="i i-stack">
               </i>
-              <span class="font-bold">immeuble</span>
+              <span class="font-bold">Immeuble</span>
             </a>
             <ul class="nav dk">
               
@@ -225,7 +225,7 @@
               </span>
               <i class="i i-study">
               </i>
-              <span class="font-bold">antecedent</span>
+              <span class="font-bold">Antecedent</span>
             </a>
             <ul class="nav dk">
               
@@ -254,7 +254,7 @@
               </span>
               <i class="i i-study">
               </i>
-              <span class="font-bold">travaux</span>
+              <span class="font-bold">Travaux</span>
             </a>
             <ul class="nav dk">
               
@@ -284,7 +284,7 @@
               </span>
               <i class="i i-study">
               </i>
-              <span class="font-bold">proprietaire</span>
+              <span class="font-bold">Proprietaire</span>
             </a>
             <ul class="nav dk">
               
@@ -314,7 +314,7 @@
               </span>
               <i class="i i-study">
               </i>
-              <span class="font-bold">partenaire</span>
+              <span class="font-bold">Partenaire</span>
             </a>
             <ul class="nav dk">
               

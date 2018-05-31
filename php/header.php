@@ -4,7 +4,7 @@
           <i class="fa fa-bars"></i>
         </a>
         <a href="../home/dashboard.php" class="navbar-brand">
-          <span class="hidden-nav-xs">HotelApp</span>
+          <span class="hidden-nav-xs">ImmoApp</span>
         </a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="fa fa-cog"></i>

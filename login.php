@@ -16,9 +16,9 @@
 
     $password = mysqli_real_escape_string($conn,$password);
 
-    $sql= "SELECT Utilisateur.*, Hotel.Nom AS NomHotel
+    $sql= "SELECT Utilisateur.*, Agence.Nom AS NomAgence
            FROM Utilisateur 
-           INNER JOIN Hotel ON Utilisateur.HotelID = Hotel.ID 
+           INNER JOIN Agence ON Utilisateur.AgenceID = Agence.ID 
            WHERE Username ='$username' AND Password='$password'";
 
     $result = mysqli_query($conn,$sql);
@@ -28,9 +28,9 @@
 
       $toti = mysqli_fetch_assoc($result);
 
-      $roti = $toti['HotelID'];
+      $roti = $toti['AgenceID'];
 
-      $sql1= "SELECT * FROM Paiement WHERE HotelID = '$roti'";
+      $sql1= "SELECT * FROM Paiement WHERE AgenceID = '$roti'";
 
       $result1=mysqli_query($conn,$sql1);
 
@@ -58,11 +58,11 @@
 
             $_SESSION['pseudo'] = $req['Pseudo'];
 
-            $_SESSION['nomhotel'] = $req['NomHotel'];
+            $_SESSION['nomagence'] = $req['NomAgence'];
 
             $_SESSION['nomuser'] = $req['Nom'];
 
-            $_SESSION['hotelid'] = $req['HotelID'];
+            $_SESSION['agenceid'] = $req['AgenceID'];
 
             $_SESSION['statut'] = 1;
 
