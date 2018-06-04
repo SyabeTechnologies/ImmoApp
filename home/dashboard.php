@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>HotelApp - Accueil</title>
+  <title>ImmoApp - Accueil</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -54,7 +54,7 @@ include('../php/check.php');
                   </section>
                 <center>  
                 <br>            
-                <h2>Application de Gestion d'Hotel</h2>
+                <h2>Application de Gestion Immobiliere</h2>
                 <br>
                   <div class="row">
                     <img src="../images/hotel.jpg" style="width:500px;height:400px;">

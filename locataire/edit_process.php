@@ -14,26 +14,32 @@
 
         $nom = $_POST['nom'];
 
-        $type = $_POST['typechambreid'];
+        $datenaissance = $_POST['datenaissance'];
 
-        $status = $_POST['status'];
+        $profession = $_POST['profession'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $numcompte = $_POST['numcompte'];
 
-        $sql = "UPDATE Chambre SET  Nom='$nom', TypeChambreID='$type', Status='$status' WHERE ID = '$id' AND HotelID = '$hotelid'"; 
+        $cni = $_POST['cni'];
+
+        $agenceid = $_SESSION['agenceid'];
+
+        $sql = "UPDATE Locataire 
+            SET  Nom='$nom', DateNaissance='$datenaissance', Profession='$profession', Numcompte = '$numcompte', CNI = '$cni' 
+            WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Chambre modifié avec succes";
+            $_SESSION['flash']="Locataire modifié avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la modification de la chambre";
+            $_SESSION['flash']="Erreur survenue lors de la modification";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

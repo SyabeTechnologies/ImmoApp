@@ -7,7 +7,7 @@
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Chambre | Liste</title>
+  <title>Locataire | Liste</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -59,7 +59,7 @@
                         ?>  
                       </center>
                   </section>
-                  <p class="h4 text-center mb-4">Liste des Chambres</p>
+                  <p class="h4 text-center mb-4">Liste des Locataires</p>
                   <br>
                   <div class="text-center mt-4">
                     <a href="add.php"><button class="btn btn-outline-info">Ajouter</button></a>
@@ -69,12 +69,11 @@
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
+                    $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT Chambre.*, TypeChambre.Libelle AS TypeNom 
-                            FROM Chambre
-                            INNER JOIN TypeChambre ON Chambre.TypeChambreID = TypeChambre.ID
-                            WHERE Chambre.HotelID = '$hotelid'"; 
+                    $sql = "SELECT * 
+                            FROM Locataire
+                            WHERE Locataire.AgenceID = '$agenceid'"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -89,9 +88,10 @@
                         <tr>
                           <th>ID</th>
                           <th>Nom</th>
-                          <th>Type</th>
-                          <th>Status</th>
-                          <th>Actions</th>
+                          <th>Date Naissance</th>
+                          <th>Profession</th>
+                          <th>Numero de compte</th>
+                          <th>CNI</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -103,9 +103,11 @@
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
                                 echo "<td>" . $roti['Nom'] . "</td>";
-                                echo "<td>" . $roti['TypeNom'] . "</td>";
-                                if ($roti['Status'] == 0){ echo "<td>Libre</td>";} else {echo "<td>Occupée</td>";};
-                                echo '<td><div class="btn-group btn-group-md">';
+                                echo "<td>" . $roti['DateNaissance'] . "</td>";
+                                echo "<td>" . $roti['Profession'] . "</td>";
+                                echo "<td>" . $roti['NumCompte'] . "</td>";
+                                echo "<td>" . $roti['CNI'] . "</td>";
+                               echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
                                 <a onclick="return confirm('Voulez-vous vraiment supprimer cette activité ?')" href="delete.php?id=<?php echo $roti['ID'];?>" type="button" class="btn btn-danger">Supprimer</a>

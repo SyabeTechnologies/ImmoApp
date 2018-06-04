@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Chambre | Modifier</title>
+  <title>Locataire | Modifier</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -64,17 +64,13 @@ include('../php/check.php');
 
                         $ide = $_GET['id'];
 
-                        $hotelid = $_SESSION['hotelid'];
+                        $agenceid = $_SESSION['agenceid'];
 
                         include('../connection.php');
 
-                        $sql = "SELECT * FROM Chambre WHERE ID= '$ide' AND HotelID = '$hotelid'"; 
+                        $sql = "SELECT * FROM Locataire WHERE ID= '$ide' AND AgenceID = '$agenceid'"; 
     
                         $result = mysqli_query($conn, $sql);
-
-                        $sql1 = "SELECT * FROM TypeChambre WHERE HotelID = '$hotelid'"; 
-    
-                        $result1 = mysqli_query($conn, $sql1);
     
                         mysqli_close($conn);
 
@@ -82,7 +78,7 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="edit_process.php">
-    <p class="h4 text-center mb-4">Modifier Information Chambre</p>
+    <p class="h4 text-center mb-4">Modifier Information locataire</p>
     <br>
 
     <!-- Material input montant -->
@@ -93,24 +89,34 @@ include('../php/check.php');
         <input type="hidden" name="id" id="id" value="<?php foreach ($result as $roie){ echo $roie['ID']; } ?>">
     </div>
     <br>
-    <div class="md-form ">  
-        <select class="form-control chosen-select" id="typechambreid" name="typechambreid" required>
-                  <option value=""></option>
-                  <?php foreach($result1 as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Libelle'] ?>" <?php foreach ($result as $roie){ if ($roie['TypeChambreID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Libelle'] ?></option>
-                  <?php } ?> 
-        </select>
-        <label for="materialFormSubscriptionNameEx">Type</label>
+    <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="date" id="datenaissance" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['DateNaissance']; } ?>" name="datenaissance" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date Naissance</label>
     </div>
     <br>
     <!-- Material input type -->
     <div class="md-form">
         
-    <select class="form-control" data-style="btn-new" id="status" name="status">
-      <option value="0" <?php foreach ($result as $roie){ if ($roie['Status'] == 0) {echo "selected"; }} ?> >Libre</option>
-      <option value="1" <?php foreach ($result as $roie){ if ($roie['Status'] == 1) {echo "selected"; }} ?>>Occupée</option>
-    </select>
-        <label for="materialFormSubscriptionEmailEx">Status</label>
+        <input type="text" id="profession" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Profession']; } ?>" name="profession" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Profession</label>
+    </div>
+    <br>
+
+    <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="text" id="numcompte" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['NumCompte']; } ?>" name="numcompte" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Numero compte</label>
+    </div>
+    <br>
+
+    <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="text" id="cni" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['CNI']; } ?>" name="cni" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">CNI</label>
     </div>
     <br>
     <div class="text-center mt-4">

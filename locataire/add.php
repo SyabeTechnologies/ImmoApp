@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Chambre | Ajouter</title>
+  <title>Locataire | Ajouter</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -53,12 +53,12 @@ include('../php/check.php');
                             
                           }
 
-                          $hotelid = $_SESSION['hotelid'];
+                          $agenceid = $_SESSION['agenceid'];
 
                           include('../connection.php');
 
-                            $sql5 = "SELECT * FROM TypeChambre
-                                     WHERE HotelID = '$hotelid'"; 
+                            $sql5 = "SELECT * FROM Locataire
+                                     WHERE AgenceID = 'agenceid'"; 
 
                             $result = mysqli_query($conn, $sql5);
 
@@ -77,29 +77,47 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="add_process.php">
-    <p class="h4 text-center mb-4">Nouvelle Chambre</p>
+    <p class="h4 text-center mb-4">Nouveau Locataire</p>
     <br>
 
-    <!-- Material input montant -->
-    <div class="md-form ">
+     <div class="md-form ">
         
         <input type="text" id="nom" class="form-control" name="nom" required autofocus>
         <label for="materialFormSubscriptionNameEx">Nom</label>
     </div>
     <br>
-    
-    <div class="md-form ">  
-        <select class="form-control chosen-select" id="typechambreid" name="typechambreid" required>
-                  <option value=""></option>
-                  <?php foreach($result as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Libelle'] ?>"><?php echo $roiv['Libelle'] ?></option>
-                  <?php } ?> 
-        </select>
-        <label for="materialFormSubscriptionNameEx">Type</label>
+    <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="date" id="datenaissance" class="form-control" name="datenaissance" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date de naissance</label>
     </div>
     <br>
 
+    <!-- Material input montant -->
+    <div class="md-form ">
+        
+        <input type="text" id="profession" class="form-control" name="profession" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Profession</label>
+    </div>
+    <br>
 
+    <!-- Material input montant -->
+    <div class="md-form ">
+        
+        <input type="text" id="numcompte" class="form-control" name="numcompte" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Numero de compte</label>
+    </div>
+    <br>
+
+    <!-- Material input montant -->
+    <div class="md-form ">
+        
+        <input type="text" id="cni" class="form-control" name="cni" required autofocus>
+        <label for="materialFormSubscriptionNameEx">CNI</label>
+    </div>
+    <br>
+    
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>

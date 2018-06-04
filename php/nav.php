@@ -3,7 +3,7 @@
         <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"><br/></div>
         <ul class="nav nav-main" data-ride="collapse">
           <li>
-            <a href="../home/dashboard1.php" class="auto">
+            <a href="#" class="auto">
               <span class="pull-right text-muted">
                 <i class="i i-circle-sm-o text"></i>
                 <i class="i i-circle-sm text-active"></i>

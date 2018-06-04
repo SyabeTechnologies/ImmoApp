@@ -56,7 +56,7 @@
 
             $_SESSION['userid'] = $req['ID'];
 
-            $_SESSION['pseudo'] = $req['Pseudo'];
+            $_SESSION['username'] = $req['Username'];
 
             $_SESSION['nomagence'] = $req['NomAgence'];
 

@@ -12,22 +12,22 @@
     {
         $id = $_GET['id'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $hotelid = $_SESSION['agenceid'];
 
-        $sql= "DELETE FROM Chambre WHERE ID='$id' AND HotelID = '$hotelid'"; 
+        $sql= "DELETE FROM Locataire WHERE ID='$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Chambre supprimé avec succes";
+            $_SESSION['flash']="Locataire supprimé avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la supression de la chambre";
+            $_SESSION['flash']="Erreur survenue lors de la supression";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }
