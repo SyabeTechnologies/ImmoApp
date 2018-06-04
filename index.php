@@ -5,7 +5,7 @@ session_start();
 <html lang="en" class=" ">
 <head>  
   <meta charset="utf-8" />
-  <title>Connexion | HotelApp</title>
+  <title>Connexion | ImmoApp</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
@@ -32,7 +32,7 @@ session_start();
     </center>
   <section id="content" class="m-t-lg wrapper-md animated fadeInUp">    
     <div class="container aside-xl">
-      <a class="navbar-brand block" href="index.html">HOTELAPP</a>
+      <a class="navbar-brand block" href="index.html">IMMOAPP</a>
       <section class="m-b-lg">
         <header class="wrapper text-center">
           <strong>Se connecter</strong>
