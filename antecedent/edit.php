@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Reservation | Modifier</title>
+  <title>Antecedent | Modifier</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -64,16 +64,16 @@ include('../php/check.php');
 
                         $ide = $_GET['id'];
 
-                        $hotelid = $_SESSION['hotelid'];
+                        $agenceid = $_SESSION['agenceid'];
                         
                         include('../connection.php');
 
-                        $sql = "SELECT * FROM Reservation WHERE ID= '$ide' AND HotelID = '$hotelid'"; 
+                        $sql = "SELECT * FROM Antecedent WHERE ID= '$ide' AND AgenceID = '$agenceid'"; 
     
                         $result = mysqli_query($conn, $sql);
 
-                        $sql1 = "SELECT * FROM TypeChambre WHERE HotelID = '$hotelid'"; 
-    
+                        $sql1 = "SELECT * FROM Locataire WHERE AgenceID = '$agenceid'"; 
+                        
                         $result1 = mysqli_query($conn, $sql1);
     
                         mysqli_close($conn);
@@ -82,7 +82,7 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="edit_process.php">
-    <p class="h4 text-center mb-4">Modifier Information Reservation</p>
+    <p class="h4 text-center mb-4">Modifier Information Antecedent</p>
     <br>
 
     <!-- Material input montant -->
@@ -94,55 +94,30 @@ include('../php/check.php');
     <!-- Material input type -->
     <div class="md-form">
         
-        <input type="text" id="nom" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Nom']; } ?>" name="nom" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Nom</label>
+        <input type="date" id="date" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Date']; } ?>" name="date" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date</label>
     </div>
     <br>
 
       <!-- Material input type -->
       <div class="md-form">
         
-        <input type="date" id="datedebut" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['DateDebut']; } ?>" name="datedebut" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Debut</label>
+        <input type="text" id="description" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Description']; } ?>" name="description" autofocus>
+        <label for="materialFormSubscriptionEmailEx">Description</label>
     </div>
     <br>
-
-      <!-- Material input type -->
-      <div class="md-form">
-        
-        <input type="date" id="datefin" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['DateFin']; } ?>" name="datefin" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Fin</label>
-    </div>
-    <br>
-
-    <!-- Material input type -->
-    <div class="md-form">
-        <input type="number" min="0" max="24" id="temps" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Temps']; } ?>" name="temps" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Temps</label>
-    </div>
-    <br>
-
-      <!-- Material input type -->
+<!-- Material input type -->
       <div class="md-form ">  
-        <select class="form-control chosen-select" id="typechambreid" name="typechambreid" required>
+        <select class="form-control chosen-select" id="locataireid" name="locataireid" required>
                   <option value=""></option>
                   <?php foreach($result1 as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Libelle'] ?>" <?php foreach ($result as $roie){ if ($roie['TypeChambreID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Libelle'] ?></option>
+                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Nom'] ?>" <?php foreach ($result as $roie){ if ($roie['LocataireID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Nom'] ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Type</label>
+        <label for="materialFormSubscriptionNameEx">Nom</label>
     </div>
     <br>
-
-    <!-- Material input type -->
-    <div class="md-form">
-        <input type="text" id="commentaire" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Commentaire']; } ?>" name="commentaire" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Commentaire</label>
-    </div>
-    <br>
-
-
-    <div class="text-center mt-4">
+<div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
 </form>

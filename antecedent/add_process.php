@@ -13,39 +13,27 @@
 
         $date = date("Y-m-d");
 
-        $heure = date("h:i:s");
+        $description = $_POST['description'];
 
-        $nom = $_POST['nom'];
+        $locataireid = $_POST['locataireid'];
 
-        $debut = $_POST['datedebut'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $fin = $_POST['datefin'];
-
-        $temps = $_POST['temps'];
-
-        $type = $_POST['typechambreid'];
-
-        $commentaire = $_POST['commentaire'];
-
-        $utilisateur = $_SESSION['userid'];
-
-        $hotelid = $_SESSION['hotelid'];
-
-        $sql = "INSERT INTO Reservation (Date, Heure, Nom, DateDebut, DateFin, Temps, TypeChambreID, Commentaire, UtilisateurID, HotelID) 
-                VALUES ('$date', '$heure', '$nom', '$debut', '$fin', '$temps', '$type', '$commentaire', '$utilisateur', '$hotelid')"; 
+        $sql = "INSERT INTO Antecedent (Date, Description, LocataireID, AgenceID) 
+                VALUES ('$date', '$description', '$locataireid', '$agenceid')"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash'] = "Reservation ajoutée avec succes";
+            $_SESSION['flash'] = "Antecedent ajouté avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash'] = "Erreur survenue lors de l'ajout de la reservation";
+            $_SESSION['flash'] = "Erreur survenue lors de l'ajout";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

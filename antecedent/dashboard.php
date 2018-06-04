@@ -7,7 +7,7 @@
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Reservation | Liste</title>
+  <title>Antecedent | Liste</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -59,7 +59,7 @@
                         ?>  
                       </center>
                   </section>
-                  <p class="h4 text-center mb-4">Liste des reservations</p>
+                  <p class="h4 text-center mb-4">Liste des antecedents</p>
                   <br>
                   <div class="text-center mt-4">
                     <a href="add.php"><button class="btn btn-outline-info">Ajouter</button></a>
@@ -69,13 +69,12 @@
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
+                    $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT Reservation.*, Utilisateur.Nom AS NomUtilisateur, TypeChambre.Libelle AS TypeNom 
-                            FROM Reservation 
-                            INNER JOIN Utilisateur ON Reservation.UtilisateurID = Utilisateur.ID
-                            INNER JOIN TypeChambre ON Reservation.TypeChambreID = TypeChambre.ID
-                            WHERE Reservation.HotelID = '$hotelid'"; 
+                    $sql = "SELECT Antecedent.*, Locataire.Nom AS NomLocataire,
+                            FROM Antecedent 
+                            INNER JOIN Locataire ON Antecedent.LocataireID = Locataire.ID
+                            WHERE Antecedent.AgenceID = '$agenceid'"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -90,15 +89,8 @@
                         <tr>
                           <th>ID</th>
                           <th>Date</th>
-                          <th>Heure</th>
+                          <th>Description</th>
                           <th>Nom</th>
-                          <th>Debut</th>
-                          <th>Fin</th>
-                          <th>Temps</th>
-                          <th>Type</th>
-                          <th>Commentaire</th>
-                          <th>Utilisateur</th>
-                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -109,38 +101,11 @@
                               {
                                 $date = strtotime($roti['Date']); 
                                 $new_date = date('d-m-Y', $date);
-
-                                if ($roti['DateDebut'] == '0000-00-00')
-                                {
-                                  $new_datedebut = "";
-                                }
-                                else
-                                {
-                                  $datedebut = strtotime($roti['DateDebut']); 
-                                  $new_datedebut = date('d-m-Y', $datedebut);
-                                }
-                                
-                                if ($roti['DateFin'] == '0000-00-00')
-                                {
-                                  $new_datefin = "";
-                                }
-                                else
-                                {
-                                  $datefin = strtotime($roti['DateFin']); 
-                                  $new_datefin = date('d-m-Y', $datefin);
-                                }
-                                
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
                                 echo "<td>" . $new_date . "</td>";
-                                echo "<td>" . $roti['Heure'] . "</td>";
-                                echo "<td>" . $roti['Nom'] . "</td>";
-                                echo "<td>" . $new_datedebut . "</td>";
-                                echo "<td>" . $new_datefin . "</td>";
-                                echo "<td>" . $roti['Temps'] . "</td>";
-                                echo "<td>" . $roti['TypeNom'] . "</td>";
-                                echo "<td>" . $roti['Commentaire'] . "</td>";
-                                echo "<td>" . $roti['NomUtilisateur'] . "</td>";
+                                echo "<td>" . $roti['Description'] . "</td>";
+                                echo "<td>" . $roti['NomLocataire'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>

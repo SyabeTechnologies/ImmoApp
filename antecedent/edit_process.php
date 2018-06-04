@@ -12,38 +12,30 @@
     {
         $id = $_POST['id'];
 
-        $nom = $_POST['nom'];
+        $date = $_POST['date'];
 
-        $debut = $_POST['datedebut'];
+       $description = $_POST['description'];
 
-        $fin = $_POST['datefin'];
+        $locataireid = $_POST['locataireid'];
 
-        $temps = $_POST['temps'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $type = $_POST['typechambreid'];
-
-        $commentaire = $_POST['commentaire'];
-
-        $utilisateur = $_SESSION['userid'];
-
-        $hotelid = $_SESSION['hotelid'];
-
-        $sql = "UPDATE Reservation 
-                SET  Nom = '$nom', DateDebut = '$debut', DateFin = '$fin', Temps = '$temps', TypeChambreID ='$type', Commentaire = '$commentaire', UtilisateurID = '$utilisateur'
-                WHERE ID ='$id' AND HotelID = '$hotelid'"; 
+        $sql = "UPDATE Antecedent 
+                SET  Date = '$date', Description = '$description', LocataireID = '$locataireid'
+                WHERE ID ='$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Reservation modifiée avec succes";
+            $_SESSION['flash']="Antecedent modifié avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la modification de la reservation";
+            $_SESSION['flash']="Erreur survenue lors de la modification";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

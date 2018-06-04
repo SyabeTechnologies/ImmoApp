@@ -6,7 +6,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Reservation | Ajouter</title>
+  <title>Antecedent | Ajouter</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -51,11 +51,15 @@ include('../php/check.php');
                           }
                             include('../connection.php');
 
-                            $hotelid = $_SESSION['hotelid'];
+                            $agenceid = $_SESSION['agenceid'];
 
-                            $sql5 = "SELECT * FROM TypeChambre WHERE HotelID = '$hotelid'"; 
+                            $sql5 = "SELECT * FROM Antecedent WHERE AgenceID = '$agenceid'"; 
 
                             $result = mysqli_query($conn, $sql5);
+
+                             $sql4 = "SELECT * FROM Locataire WHERE AgenceID = '$agenceid'";
+
+                             $result4 = mysqli_query($conn, $sql4);
 
                             mysqli_close($conn);
                         ?>  
@@ -71,59 +75,37 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="add_process.php">
-    <p class="h4 text-center mb-4">Nouvelle Reservation</p>
+    <p class="h4 text-center mb-4">Nouvel Antecedent</p>
     <br>
 
     <!-- Material input type -->
     <div class="md-form">
         
-        <input type="text" id="nom" class="form-control" name="nom" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Nom</label>
-    </div>
-    <br>
-
-    <!-- Material input type -->
-    <div class="md-form">
-        
-        <input type="date" id="datedebut" class="form-control" name="datedebut" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Debut</label>
+        <input type="date" id="date" class="form-control" name="date" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date</label>
     </div>
     <br>
 
     <!-- Material input type -->
     <div class="md-form">
         
-        <input type="date" id="datefin" class="form-control" name="datefin" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Fin</label>
+        <input type="text" id="description" class="form-control" name="description" autofocus>
+        <label for="materialFormSubscriptionEmailEx">Description</label>
     </div>
     <br>
 
-    <!-- Material input type -->
-    <div class="md-form">
-        <input type="number" min="0" max="24" id="temps" value="0" class="form-control" name="temps" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Temps</label>
-    </div>
-    <br>
-
-    <div class="md-form ">  
-        <select class="form-control chosen-select" id="typechambreid" name="typechambreid" required>
+   <div class="md-form ">  
+        <select class="form-control chosen-select" id="locataireid" name="locataireid" required>
                   <option value=""></option>
-                  <?php foreach($result as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Libelle'] ?>"><?php echo $roiv['Libelle'] ?></option>
+                  <?php foreach($result4 as $roiv){ ?>
+                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Nom'] ?>"><?php echo $roiv['Nom'] ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Type</label>
+        <label for="materialFormSubscriptionNameEx">Nom</label>
     </div>
     <br>
 
-    <!-- Material input type -->
-    <div class="md-form">
-        <input type="text" id="commentaire" class="form-control" name="commentaire" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Commentaire</label>
-    </div>
-    <br>
-
-    <div class="text-center mt-4">
+ <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
 </form>

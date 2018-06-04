@@ -12,22 +12,22 @@
     {
         $id = $_GET['id'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $sql= "DELETE FROM Reservation WHERE ID = '$id' AND HotelID = '$hotelid'"; 
+        $sql= "DELETE FROM Anttecedent WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Reservation supprimée avec succes";
+            $_SESSION['flash']="Antecedent supprimé avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la supression de la reservation";
+            $_SESSION['flash']="Erreur survenue lors de la supression";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }
