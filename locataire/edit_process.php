@@ -13,6 +13,8 @@
         $id = $_POST['id'];
 
         $nom = $_POST['nom'];
+         
+        $contact = $_POST['contact'];
 
         $datenaissance = $_POST['datenaissance'];
 
@@ -25,7 +27,7 @@
         $agenceid = $_SESSION['agenceid'];
 
         $sql = "UPDATE Locataire 
-            SET  Nom='$nom', DateNaissance='$datenaissance', Profession='$profession', Numcompte = '$numcompte', CNI = '$cni' 
+            SET  Nom='$nom', Contact='$contact', DateNaissance='$datenaissance', Profession='$profession', Numcompte = '$numcompte', CNI = '$cni' 
             WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);

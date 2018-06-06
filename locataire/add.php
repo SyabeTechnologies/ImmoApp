@@ -86,6 +86,14 @@ include('../php/check.php');
         <label for="materialFormSubscriptionNameEx">Nom</label>
     </div>
     <br>
+
+    <div class="md-form ">
+        
+        <input type="text" id="contact" class="form-control" name="contact" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Contact</label>
+    </div>
+    <br>
+
     <!-- Material input type -->
     <div class="md-form">
         

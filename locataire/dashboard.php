@@ -88,6 +88,7 @@
                         <tr>
                           <th>ID</th>
                           <th>Nom</th>
+                           <th>Contact</th>
                           <th>Date Naissance</th>
                           <th>Profession</th>
                           <th>Numero de compte</th>
@@ -104,6 +105,7 @@
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
                                 echo "<td>" . $roti['Nom'] . "</td>";
+                                echo "<td>" . $roti['Contact'] . "</td>";
                                 echo "<td>" . $roti['DateNaissance'] . "</td>";
                                 echo "<td>" . $roti['Profession'] . "</td>";
                                 echo "<td>" . $roti['NumCompte'] . "</td>";

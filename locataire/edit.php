@@ -89,6 +89,14 @@ include('../php/check.php');
         <input type="hidden" name="id" id="id" value="<?php foreach ($result as $roie){ echo $roie['ID']; } ?>">
     </div>
     <br>
+
+    <div class="md-form">
+        
+        <input type="text" id="contact" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Contact']; } ?>" name="contact" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Contact</label>
+    </div>
+    <br>
+
     <!-- Material input type -->
     <div class="md-form">
         

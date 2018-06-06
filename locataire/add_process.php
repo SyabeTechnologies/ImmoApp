@@ -11,6 +11,8 @@
     {
 
         $nom = $_POST['nom'];
+         
+        $contact = $_POST['contact'];
 
         $datenaissance = $_POST['datenaissance'];
 
@@ -22,8 +24,8 @@
 
         $agenceid = $_SESSION['agenceid'];
 
-        $sql = "INSERT INTO Locataire (Nom, DateNaissance, Profession, NumCompte, CNI, AgenceID) 
-                VALUES ('$nom','$datenaissance', '$profession', '$numcompte', '$cni', '$agenceid')"; 
+        $sql = "INSERT INTO Locataire (Nom, Contact, DateNaissance, Profession, NumCompte, CNI, AgenceID) 
+                VALUES ('$nom', '$contact', '$datenaissance', '$profession', '$numcompte', '$cni', '$agenceid')"; 
 
         $result = mysqli_query($conn, $sql);
 
