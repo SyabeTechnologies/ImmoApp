@@ -92,6 +92,7 @@
                           <th>Profession</th>
                           <th>Numero de compte</th>
                           <th>CNI</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>

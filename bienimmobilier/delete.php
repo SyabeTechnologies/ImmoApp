@@ -8,31 +8,30 @@
 
     include('../php/check.php');
 
-    if(isset($_GET['id']))
-    {
+    
         $id = $_GET['id'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $sql= "DELETE FROM TypeChambre WHERE ID = '$id' AND HotelID = '$hotelid'"; 
+        $sql= "DELETE FROM Bienimmobilier WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Type Chambre supprimé avec succes";
+            $_SESSION['flash']="Bien Immobilier supprimé avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la supression du type de chambre";
+            $_SESSION['flash']="Erreur survenue lors de la supression";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }
 
-    }
+    
 
     mysqli_close($conn);
 

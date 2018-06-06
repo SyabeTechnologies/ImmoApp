@@ -7,29 +7,39 @@
     include('../connection.php');
 
     include('../php/check.php');
-
+     
     if(isset($_POST['submit']))
     {
+   
         $id = $_POST['id'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $libelle = $_POST['libelle'];
+        $nom = $_POST['nom'];
 
-        $sql = "UPDATE TypeChambre SET Libelle = '$libelle' ID='$id' WHERE HotelID = '$hotelid'"; 
+        $loyerprix = $_POST['loyerprix'];
+
+        $type = $_POST['type'];
+
+        $nombrepiece = $_POST['nombrepiece'];
+
+        $immeubleid = $_POST['immeubleid'];
+
+        $sql = "UPDATE Bienimmobilier SET Nom = '$nom',  LoyerPrix = '$loyerprix',  Type = '$type',
+          NombrePiece ='$nombrepiece', ImmeubleID = '$immeubleid' WHERE ID='$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Type Chambre modifié avec succes";
+            $_SESSION['flash']="Bien Immobilier modifié avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la modification du type de chambre";
+            $_SESSION['flash']="Erreur survenue lors de la modification du Bien Immobilier";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

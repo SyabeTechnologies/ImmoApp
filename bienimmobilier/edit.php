@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Type Chambre | Modifier</title>
+  <title>Bien | Modifier</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -17,6 +17,8 @@ include('../php/check.php');
   <link rel="stylesheet" href="../css/font.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />  
   <link rel="stylesheet" href="../js/calendar/bootstrap_calendar.css" type="text/css" />
+
+   <link rel="stylesheet" href="../js/chosen/chosen.css" type="text/css" />
 </head>
 <body class="" >
 
@@ -63,13 +65,18 @@ include('../php/check.php');
 
                         $ide = $_GET['id'];
 
-                        $hotelid = $_SESSION['hotelid'];
+                        $agenceid = $_SESSION['agenceid'];
 
                         include('../connection.php');
 
-                        $sql = "SELECT * FROM TypeChambre WHERE ID= '$ide' AND HotelID = '$hotelid'"; 
+                        $sql = "SELECT * FROM Bienimmobilier WHERE ID= '$ide' AND AgenceID = '$agenceid'"; 
     
                         $result = mysqli_query($conn, $sql);
+
+                        $sql1 = "SELECT * FROM Immeuble WHERE AgenceID = '$agenceid'"; 
+
+                        $immeuble = mysqli_query($conn, $sql1);
+
     
                         mysqli_close($conn);
 
@@ -77,16 +84,51 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="edit_process.php">
-    <p class="h4 text-center mb-4">Modifier Information Chambre</p>
+    <p class="h4 text-center mb-4">Modifier Information des BIen Immobilier</p>
+    <br>
+
+
+
+    <div class="md-form ">  
+        <select class="form-control chosen-select" id="immeuble" name="immeuble" disabled >
+                  <option value=""></option>
+                  <?php foreach($immeuble as $roiv){ ?>
+                  <option value="<?php echo $roiv['ID'] ?>" <?php foreach ($result as $roie){ if ($roie['ImmeubleID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Nom'] ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Immeuble</label>
+        <input type="hidden" name="immeubleid" id="immeubleid" value="<?php foreach ($result as $roie){ echo $roie['ImmeubleID']; } ?>">
+    </div>
     <br>
 
     <!-- Material input montant -->
     <div class="md-form ">
         
-        <input type="text" id="libelle" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Libelle']; } ?>" name="libelle" required autofocus>
+        <input type="text" id="nom" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Nom']; } ?>" name="nom" required autofocus>
         <label for="materialFormSubscriptionNameEx">Nom</label>
         <input type="hidden" name="id" id="id" value="<?php foreach ($result as $roie){ echo $roie['ID']; } ?>">
     </div>
+    <br>
+
+    <div class="md-form ">
+        
+        <input type="text" id="loyerprix" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['LoyerPrix']; } ?>" name="loyerprix" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Loyer</label>
+       </div>
+    <br>
+
+    <div class="md-form ">
+        
+        <input type="text" id="type" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Type']; } ?>" name="type" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Type</label>
+        </div>
+    <br>
+
+    <div class="md-form ">
+        
+        <input type="number" id="nombrepiece" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['NombrePiece']; } ?>" name="nombrepiece" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Nombre de Piece</label>
+       </div>
     <br>
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
@@ -125,6 +167,8 @@ include('../php/check.php');
 
   <script src="../js/calendar/bootstrap_calendar.js"></script>
   <script src="../js/calendar/demo.js"></script>
+
+   <script src="../js/chosen/chosen.jquery.min.js"></script>
 
   <script src="../js/sortable/jquery.sortable.js"></script>
   <script src="../js/app.plugin.js"></script>

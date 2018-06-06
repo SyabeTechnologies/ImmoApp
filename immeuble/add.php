@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Type Chambre | Ajouter</title>
+  <title>Immeuble | Ajouter</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -17,6 +17,9 @@ include('../php/check.php');
   <link rel="stylesheet" href="../css/font.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />  
   <link rel="stylesheet" href="../js/calendar/bootstrap_calendar.css" type="text/css" />
+
+  
+  <link rel="stylesheet" href="../js/chosen/chosen.css" type="text/css" />
 </head>
 <body class="" >
 
@@ -49,6 +52,14 @@ include('../php/check.php');
                             echo"<div class='alert alert-success'><strong>" .$_SESSION['flash']. "</strong></div>";
                             unset($_SESSION['flash']);
                           }
+
+                          include('../connection.php');
+
+                          $agenceid = $_SESSION['agenceid'];
+
+                          $sql = "SELECT * FROM Proprietaire WHERE agenceID = '$agenceid'"; 
+
+                          $immeuble = mysqli_query($conn, $sql);
                         ?>  
                       </center>
                   </section>
@@ -62,16 +73,39 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="add_process.php">
-    <p class="h4 text-center mb-4">Nouveau Type Chambre</p>
+    <p class="h4 text-center mb-4">Nouvel Immeuble</p>
     <br>
 
     <!-- Material input montant -->
     <div class="md-form ">
         
-        <input type="text" id="libelle" class="form-control" name="libelle" required autofocus>
+        <input type="text" id="nom" class="form-control" name="nom" required autofocus>
         <label for="materialFormSubscriptionNameEx">Nom</label>
     </div>
     <br>
+
+     <div class="md-form ">
+        
+        <input type="text" id="localisation" class="form-control" name="localisation" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Localisaion</label>
+    </div>
+    <br>
+
+     <div class="md-form ">
+        
+        <select class="form-control chosen-select" id="proprietaireid" name="proprietaireid" required>
+                  <option value=""></option>
+                  <?php foreach($immeuble as $roi){ ?>
+                  <option value="<?php echo $roi['ID'] ?>" data-tokens="<?php echo $roi['Nom'] ?>"><?php echo $roi['Nom'] ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Proprietaire</label>
+    </div>
+    <br>
+
+   
+
+
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
@@ -109,6 +143,8 @@ include('../php/check.php');
 
   <script src="../js/calendar/bootstrap_calendar.js"></script>
   <script src="../js/calendar/demo.js"></script>
+
+   <script src="../js/chosen/chosen.jquery.min.js"></script>
 
   <script src="../js/sortable/jquery.sortable.js"></script>
   <script src="../js/app.plugin.js"></script>

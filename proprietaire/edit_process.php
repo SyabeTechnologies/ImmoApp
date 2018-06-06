@@ -12,24 +12,32 @@
     {
         $id = $_POST['id'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $libelle = $_POST['libelle'];
+        $nom = $_POST['nom'];
 
-        $sql = "UPDATE TypeChambre SET Libelle = '$libelle' ID='$id' WHERE HotelID = '$hotelid'"; 
+        $contact = $_POST['contact'];
+
+        $email = $_POST['email'];
+
+        $contrat = $_POST['contrat'];
+
+        $sql = "UPDATE Proprietaire 
+            SET Nom = '$nom', Contact = '$contact', Email = '$email', Contrat = '$contrat' 
+            WHERE  ID='$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Type Chambre modifié avec succes";
+            $_SESSION['flash']="Proprietaire modifié avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la modification du type de chambre";
+            $_SESSION['flash']="Erreur survenue lors de la modification";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

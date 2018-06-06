@@ -10,25 +10,33 @@
     if(isset($_POST['submit']))
     {
 
-        $libelle = $_POST['libelle'];
+        $nom = $_POST['nom'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $loyerprix = $_POST['loyerprix'];
 
-        $sql = "INSERT INTO TypeChambre (Libelle, HotelID) 
-                VALUES ('$libelle', '$hotelid')"; 
+        $type = $_POST['type'];
+
+        $nombrepiece = $_POST['nombrepiece'];
+
+        $immeubleid = $_POST['immeubleid'];
+
+        $agenceid = $_SESSION['agenceid'];
+
+        $sql = "INSERT INTO Bienimmobilier (Nom, Status, LoyerPrix, Type, NombrePiece, ImmeubleID, agenceID) 
+        VALUES ('$nom', '1', '$loyerprix','$type' ,'$nombrepiece', '$immeubleid', '$agenceid')"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Type Chambre ajouté avec succes";
+            $_SESSION['flash']="Bien ajouté avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de l'ajout d type chambre";
+            $_SESSION['flash']="Erreur survenue lors de l'ajout";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

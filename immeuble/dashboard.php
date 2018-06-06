@@ -7,7 +7,7 @@
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Type Chambre | Liste</title>
+  <title>Immeuble | Liste</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -59,7 +59,7 @@
                         ?>  
                       </center>
                   </section>
-                  <p class="h4 text-center mb-4">Liste des Types de Chambres</p>
+                  <p class="h4 text-center mb-4">Liste des Immeubles</p>
                   <br>
                   <div class="text-center mt-4">
                     <a href="add.php"><button class="btn btn-outline-info">Ajouter</button></a>
@@ -69,9 +69,12 @@
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
-
-                    $sql = "SELECT * FROM TypeChambre WHERE HotelID = '$hotelid'"; 
+                    $agenceid = $_SESSION['agenceid'];
+                 
+                    $sql = "SELECT Immeuble.*, Proprietaire.Nom as nomproprietaire 
+                    FROM Immeuble
+                  INNER JOIN Proprietaire ON Immeuble.ProprietaireID = Proprietaire.ID
+                     WHERE Immeuble.AgenceID = '$agenceid'"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -85,7 +88,9 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Libelle</th>
+                          <th>Nom</th>
+                          <th>Localisation</th>
+                          <th>Proprietaire</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -97,7 +102,9 @@
                               {
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
-                                echo "<td>" . $roti['Libelle'] . "</td>";
+                                echo "<td>" . $roti['Nom'] . "</td>";
+                                echo "<td>" . $roti['Localisation'] . "</td>";
+                                echo "<td>" . $roti['nomproprietaire'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>

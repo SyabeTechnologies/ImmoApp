@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Type Chambre | Ajouter</title>
+  <title>Partenaire | Ajouter</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -62,14 +62,45 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="add_process.php">
-    <p class="h4 text-center mb-4">Nouveau Type Chambre</p>
+    <p class="h4 text-center mb-4">Nouveau Partenaire</p>
     <br>
 
     <!-- Material input montant -->
     <div class="md-form ">
         
-        <input type="text" id="libelle" class="form-control" name="libelle" required autofocus>
+        <input type="text" id="nom" class="form-control" name="nom" required autofocus>
         <label for="materialFormSubscriptionNameEx">Nom</label>
+    </div>
+    <br>
+
+     <div class="md-form ">
+        
+        <input type="text" id="specialite" class="form-control" name="specialite" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Specialite</label>
+    </div>
+    <br>
+
+
+
+     <div class="md-form ">
+        
+        <input type="text" id="contact" class="form-control" name="contact" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Contact</label>
+    </div>
+    <br>
+
+     <div class="md-form ">
+        
+        <input type="text" id="email" class="form-control" name="email" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Email</label>
+    </div>
+    <br>
+
+
+     <div class="md-form ">
+        
+        <input type="text" id="localisation" class="form-control" name="localisation" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Localisation</label>
     </div>
     <br>
     <div class="text-center mt-4">

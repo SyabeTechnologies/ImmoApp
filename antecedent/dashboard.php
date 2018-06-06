@@ -91,6 +91,7 @@
                           <th>Date</th>
                           <th>Description</th>
                           <th>Nom</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
