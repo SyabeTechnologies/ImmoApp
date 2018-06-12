@@ -14,20 +14,20 @@
 
         $hotelid = $_SESSION['hotelid'];
 
-        $sql= "DELETE FROM Decaissement WHERE ID = '$id' AND HotelID = '$hotelid'"; 
+        $sql= "DELETE FROM EtatLieux WHERE ID = '$id' AND HotelID = '$hotelid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Decaissement supprimé avec succes";
+            $_SESSION['flash']="Etat de lieux supprimé avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la supression du decaissement";
+            $_SESSION['flash']="Erreur survenue lors de la supression";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

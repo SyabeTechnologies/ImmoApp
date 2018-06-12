@@ -7,7 +7,7 @@
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Reservation | Liste</title>
+  <title>Etat de lieux | Liste</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -59,7 +59,7 @@
                         ?>  
                       </center>
                   </section>
-                  <p class="h4 text-center mb-4">Liste des decaissements</p>
+                  <p class="h4 text-center mb-4">Liste des etats de lieux</p>
                   <br>
                   <div class="text-center mt-4">
                     <a href="add.php"><button class="btn btn-outline-info">Ajouter</button></a>
@@ -69,12 +69,11 @@
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
+                    $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT Decaissement.*, Utilisateur.Nom AS NomUtilisateur 
-                            FROM Decaissement 
-                            INNER JOIN Utilisateur ON Decaissement.UtilisateurID = Utilisateur.ID
-                            WHERE Decaissement.HotelID = '$hotelid'"; 
+                    $sql = "SELECT * 
+                            FROM EtatLieux
+                            WHERE EtatLieux.AgenceID = '$agenceid'"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -88,11 +87,14 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Description</th>
                           <th>Date</th>
-                          <th>Heure</th>
-                          <th>Montant</th>
-                          <th>Utilisateur</th>
+                          <th>Type</th>
+                          <th>Cuisine</th>
+                          <th>Chambre</th>
+                          <th>Salle Eau</th>
+                          <th>Salon</th>
+                          <th>Piece</th>
+                          <th>Numero contrat</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -106,11 +108,14 @@
                                 $new_date = date('d-m-Y', $date);
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
-                                echo "<td>" . $roti['Description'] . "</td>";
                                 echo "<td>" . $new_date . "</td>";
-                                echo "<td>" . $roti['Heure'] . "</td>";
-                                echo "<td>" . number_format($roti['Montant'], 0, ',', ' ') . "</td>";
-                                echo "<td>" . $roti['NomUtilisateur'] . "</td>";
+                                echo "<td>" . $roti['Type'] . "</td>";
+                                echo "<td>" . $roti['Cuisine'] . "</td>";
+                                echo "<td>" . $roti['Chambre'] . "</td>";
+                                echo "<td>" . $roti['SalleEau'] . "</td>";
+                                echo "<td>" . $roti['Salon'] . "</td>";
+                                echo "<td>" . $roti['Piece'] . "</td>";
+                                echo "<td>" . $roti['ContratID'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <a type="button" class="btn btn-danger" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>

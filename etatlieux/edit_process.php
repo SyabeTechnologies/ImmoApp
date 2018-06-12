@@ -12,30 +12,40 @@
     {
         $id = $_POST['id'];
 
-        $description = $_POST['description'];
+        $date = $_POST['date'];
 
-        $montant = $_POST['montant'];
+        $type = $_POST['type'];
+        
+        $cuisine = $_POST['cuisine'];
 
-        $utilisateurid = $_SESSION['userid'];
+        $chambre = $_POST['chambre'];
+        
+        $salleeau = $_POST['salleeau'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $salon = $_POST['salon'];
+        
+        $piece = $_POST['piece'];
 
-        $sql = "UPDATE Decaissement
-                SET   Description = '$description', Montant = '$montant', UtilisateurID = '$utilisateurid'
-                WHERE ID ='$id' AND HotelID = '$hotelid'"; 
+        $contratid = $_POST['contratid'];
+
+       $agenceid = $_SESSION['agenceid'];
+
+        $sql = "UPDATE EtatLieux
+                SET   Date = '$ $date', Type = '$type', Cuisine = '$cuisine', Chambre = '$chambre', SalleEau = '$salleeau', Salon = '$salon', Piece = '$piece', ContratID = '$contratid'
+                WHERE ID ='$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Decaissement modifié avec succes";
+            $_SESSION['flash']="Etat de lieux modifié avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la modification du Decaissement";
+            $_SESSION['flash']="Erreur survenue lors de la modification";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

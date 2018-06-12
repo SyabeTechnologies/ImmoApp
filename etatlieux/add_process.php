@@ -11,33 +11,39 @@
     if(isset($_POST['submit']))
     {
 
-        $description = $_POST['description'];
-
         $date = $_POST['date'];
 
-        $heure = date("h:i:s");
+        $type = $_POST['type'];
+        
+        $cuisine = $_POST['cuisine'];
 
-        $montant = $_POST['montant'];
+        $chambre = $_POST['chambre'];
 
-        $utilisateurid = $_SESSION['userid'];
+        $salleeau = $_POST['salleeau'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $salon = $_POST['salon'];
 
-        $sql = "INSERT INTO Decaissement (Description, Date, Heure, Montant, UtilisateurID, HotelID) 
-                VALUES ('$description', '$date','$heure', '$montant', '$utilisateurid', '$hotelid')"; 
+        $piece = $_POST['piece'];
+
+        $contratid = $_POST['contratid'];
+
+       $agenceid = $_SESSION['agenceid'];
+
+        $sql = "INSERT INTO EtatLieux (Date, Type, Cuisine, Chambre, SalleEau, Salon, Piece, ContratID, AgenceID) 
+                VALUES ('$date','$type', '$cuisine', '$chambre', '$salleeau', '$salon', '$Piece', '$contratid', '$agenceid')"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash'] = "Decaissement ajoutée avec succes";
+            $_SESSION['flash'] = "Etat de lieux ajouté avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash'] = "Erreur survenue lors de l'ajout du decaissement";
+            $_SESSION['flash'] = "Erreur survenue lors de l'ajout";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }
