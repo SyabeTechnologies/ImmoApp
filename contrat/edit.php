@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Client | Modifier</title>
+  <title>Contrat | Modifier</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -63,13 +63,24 @@ include('../php/check.php');
 
                         $ide = $_GET['id'];
 
-                        $hotelid = $_SESSION['hotelid'];
+                        $agenceid = $_SESSION['agenceid'];
                         
                         include('../connection.php');
 
-                        $sql = "SELECT * FROM Client WHERE ID = '$ide' AND HotelID = '$hotelid'"; 
+                        $sql = "SELECT * FROM Contrat WHERE ID = '$ide' AND AgenceID = '$agenceid'"; 
     
                         $result = mysqli_query($conn, $sql);
+
+                        $sql = "SELECT BienImmobilier.*, Immeuble.Nom AS NomImmeuble 
+                                FROM BienImmobilier 
+                                INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
+                                WHERE BienImmobilier.AgenceID = '$agenceid'"; 
+
+                        $bien = mysqli_query($conn, $sql);
+
+                        $sql = "SELECT * FROM Locataire WHERE AgenceID = '$agenceid'";
+
+                        $locataire= mysqli_query($conn, $sql);
     
                         mysqli_close($conn);
 
@@ -77,31 +88,60 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="edit_process.php">
-    <p class="h4 text-center mb-4">Modifier Information Client</p>
+    <p class="h4 text-center mb-4">Modifier Information Contrat</p>
+    <br>
+
+    <input type="hidden" name="id" id="id" value="<?php foreach ($result as $roie){ echo $roie['ID']; } ?>">
+
+
+    <div class="md-form ">
+        
+        <select class="form-control chosen-select" id="bienimmobilier" name="bienimmobilier" required>
+                  <option value=""></option>
+                  <?php foreach($bien as $roi){ ?>
+                  <option value="<?php echo $roi['ID'] ?>" <?php foreach ($result as $roie){ if ($roie['BienImmobilierID'] ==  $roi['ID']){echo "selected"; }}?>><?php echo $roi['Nom'] . " [" . $roi['NomImmeuble'] . "]" ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Bien Immobilier</label>
+    </div>
+    <br>
+
+    <div class="md-form ">
+        
+        <select class="form-control chosen-select" id="locataire" name="locataire" required>
+                  <option value=""></option>
+                  <?php foreach($locataire as $roi){ ?>
+                  <option value="<?php echo $roi['ID'] ?>" <?php foreach ($result as $roie){ if ($roie['LocataireID'] ==  $roi['ID']){echo "selected"; }}?>><?php echo $roi['Nom'] ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Locataire</label>
+    </div>
     <br>
 
     <!-- Material input montant -->
     <div class="md-form ">
         
-        <input type="text" id="nom" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Nom']; } ?>" name="nom" required autofocus>
-        <label for="materialFormSubscriptionNameEx">Nom</label>
-        <input type="hidden" name="id" id="id" value="<?php foreach ($result as $roie){ echo $roie['ID']; } ?>">
+        <input type="number" id="loyer" value="<?php foreach ($result as $roie){ echo $roie['LoyerMensuel']; } ?>" class="form-control" name="loyer" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Loyer</label>
     </div>
     <br>
-    <!-- Material input type -->
-    <div class="md-form">
+
+    <!-- Material input montant -->
+    <div class="md-form ">
         
-        <input type="text" id="contact" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Contact']; } ?>" name="contact" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Contact</label>
+        <input type="number" id="caution" value="<?php foreach ($result as $roie){ echo $roie['Caution']; } ?>" class="form-control" name="caution" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Caution</label>
     </div>
     <br>
-    <!-- Material input type -->
-    <div class="md-form">
+
+    <!-- Material input montant -->
+    <div class="md-form ">
         
-        <input type="email" id="email" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Email']; } ?>" name="email" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Email</label>
+        <input type="number" id="avance" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Avance']; } ?>" name="avance" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Avance</label>
     </div>
     <br>
+
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>

@@ -90,7 +90,7 @@ include('../php/check.php');
 
 
     <div class="md-form ">  
-        <select class="form-control chosen-select" id="immeuble" name="immeuble" disabled >
+        <select class="form-control chosen-select" id="immeuble" name="immeuble">
                   <option value=""></option>
                   <?php foreach($immeuble as $roiv){ ?>
                   <option value="<?php echo $roiv['ID'] ?>" <?php foreach ($result as $roie){ if ($roie['ImmeubleID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Nom'] ?></option>

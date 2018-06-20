@@ -6,7 +6,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Client | Ajouter</title>
+  <title>Contrat | Ajouter</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -16,6 +16,7 @@ include('../php/check.php');
   <link rel="stylesheet" href="../css/font.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />  
   <link rel="stylesheet" href="../js/calendar/bootstrap_calendar.css" type="text/css" />
+  <link rel="stylesheet" href="../js/chosen/chosen.css" type="text/css" />
 </head>
 <body class="" >
 
@@ -48,6 +49,23 @@ include('../php/check.php');
                             echo"<div class='alert alert-success'><strong>" .$_SESSION['flash']. "</strong></div>";
                             unset($_SESSION['flash']);
                           }
+
+                          include('../connection.php');
+
+                          $agenceid = $_SESSION['agenceid'];
+
+                          $sql = "SELECT BienImmobilier.*, Immeuble.Nom AS NomImmeuble 
+                                  FROM BienImmobilier 
+                                  INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
+                                  WHERE BienImmobilier.AgenceID = '$agenceid'"; 
+
+                          $bien = mysqli_query($conn, $sql);
+
+                          $sql = "SELECT * FROM Locataire WHERE AgenceID = '$agenceid'";
+
+                          $locataire= mysqli_query($conn, $sql);
+
+                          mysqli_close($conn);
                         ?>  
                       </center>
                   </section>
@@ -61,33 +79,78 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="add_process.php">
-    <p class="h4 text-center mb-4">Nouveau Client</p>
+    <p class="h4 text-center mb-4">Nouveau Contrat</p>
     <br>
 
     <!-- Material input montant -->
     <div class="md-form ">
         
-        <input type="text" id="nom" class="form-control" name="nom" required autofocus>
-        <label for="materialFormSubscriptionNameEx">Nom</label>
+        <input type="date" id="date" class="form-control" name="date" value="<?php echo date('Y-m-d'); ?>" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Date</label>
     </div>
     <br>
-    <!-- Material input type -->
-    <div class="md-form">
+
+    <div class="md-form ">
         
-        <input type="text" id="contact" class="form-control" name="contact" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Contact</label>
+        <select class="form-control chosen-select" id="bienimmobilier" name="bienimmobilier" required>
+                  <option value=""></option>
+                  <?php foreach($bien as $roi){ ?>
+                  <option value="<?php echo $roi['ID'] ?>"><?php echo $roi['Nom'] . " [" . $roi['NomImmeuble'] . "]" ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Bien Immobilier</label>
     </div>
     <br>
-    <!-- Material input type -->
-    <div class="md-form">
+
+    <div class="md-form ">
         
-        <input type="email" id="email" class="form-control" name="email" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Email</label>
+        <select class="form-control chosen-select" id="locataire" name="locataire" required>
+                  <option value=""></option>
+                  <?php foreach($locataire as $roi){ ?>
+                  <option value="<?php echo $roi['ID'] ?>" data-tokens="<?php echo $roi['Nom'] ?>"><?php echo $roi['Nom'] ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Locataire</label>
     </div>
     <br>
+
+    <!-- Material input montant -->
+    <div class="md-form ">
+        
+        <input type="number" id="loyer" class="form-control" name="loyer"  required autofocus>
+        <label for="materialFormSubscriptionNameEx">Loyer</label>
+    </div>
+    <br>
+
+    <!-- Material input montant -->
+    <div class="md-form ">
+        
+        <input type="number" id="caution" class="form-control" name="caution" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Caution</label>
+    </div>
+    <br>
+
+    <!-- Material input montant -->
+    <div class="md-form ">
+        
+        <input type="number" id="avance" class="form-control" name="avance" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Avance</label>
+    </div>
+    <br>
+
+    <!-- Material input montant -->
+    <div class="md-form ">
+        
+        <input type="file" id="contrat" accept="application/pdf" class="form-control" name="contrat" required autofocus>
+        <label for="materialFormSubscriptionNameEx">Contrat</label>
+    </div>
+    <br>
+    
+
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
+    <br>
 </form>
 <!-- Material form subscription -->
                       
@@ -119,6 +182,8 @@ include('../php/check.php');
   <script src="../js/charts/flot/jquery.flot.resize.js"></script>
   <script src="../js/charts/flot/jquery.flot.grow.js"></script>
   <script src="../js/charts/flot/demo.js"></script>
+
+  <script src="../js/chosen/chosen.jquery.min.js"></script>
 
   <script src="../js/calendar/bootstrap_calendar.js"></script>
   <script src="../js/calendar/demo.js"></script>

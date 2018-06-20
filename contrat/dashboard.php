@@ -7,7 +7,7 @@
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Client | Liste</title>
+  <title>Contrat | Liste</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -56,7 +56,7 @@
                         ?>  
                       </center>
                   </section>
-                  <p class="h4 text-center mb-4">Liste Client</p>
+                  <p class="h4 text-center mb-4">Liste Contrat</p>
                   <br>
                   <div class="text-center mt-4">
                     <a href="add.php"><button class="btn btn-outline-info">Ajouter</button></a>
@@ -66,9 +66,13 @@
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
+                    $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT * FROM Client WHERE HotelID = '$hotelid'"; 
+                    $sql = "SELECT Contrat.*, BienImmobilier.Nom AS NomBien, Locataire.Nom AS NomLocataire 
+                            FROM Contrat 
+                            INNER JOIN BienImmobilier ON Contrat.BienImmobilierID = BienImmobilier.ID
+                            INNER JOIN Locataire ON Contrat.LocataireID = Locataire.ID
+                            WHERE Contrat.AgenceID = '$agenceid'"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -82,9 +86,15 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Nom et Prenoms</th>
-                          <th>Contact</th>
-                          <th>Email</th>
+                          <th>Date</th>
+                          <th>Locataire</th>
+                          <th>Bien Immobilier</th>
+                          <th>Loyer</th>
+                          <th>Caution</th>
+                          <th>Avance</th>
+                          <th>Contrat</th>
+                          <th>Resiliation</th>
+                          <th>Date Resiliation</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -96,12 +106,19 @@
                               {
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
-                                echo "<td>" . $roti['Nom'] . "</td>";
-                                echo "<td>" . $roti['Contact'] . "</td>";
-                                echo "<td>" . $roti['Email'] . "</td>";
+                                echo "<td>" . $roti['Date'] . "</td>";
+                                echo "<td>" . $roti['NomLocataire'] . "</td>";
+                                echo "<td>" . $roti['NomBien'] . "</td>";
+                                echo "<td>" . $roti['LoyerMensuel'] . "</td>";
+                                echo "<td>" . $roti['Caution'] . "</td>";
+                                echo "<td>" . $roti['Avance'] . "</td>";
+                                echo "<td><a href='" . base64_decode($roti['Contrat']) . ".pdf' target='_blank'>voir</a></td>";
+                                echo "<td>" . $roti['Resiliation'] . "</td>";
+                                echo "<td>" . $roti['DateResiliation'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
-                                <a type="button" class="btn btn-danger" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                                <a type="button" class="btn btn-xs btn-danger" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                                <a type="button" class="btn btn-xs btn-danger" href="resilier.php?id=<?php echo $roti['ID']; ?>">Resilier</a>
                                 </td>         
                           <?php
                                 echo "</tr>";      

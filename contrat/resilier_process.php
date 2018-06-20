@@ -1,4 +1,5 @@
 <?php
+
     ob_start();
 
     session_start();
@@ -10,33 +11,26 @@
     if(isset($_POST['submit']))
     {
 
-        $nom = $_POST['nom'];
+        $id = $_POST['id'];
 
-        $loyerprix = $_POST['loyerprix'];
-
-        $type = $_POST['type'];
-
-        $nombrepiece = $_POST['nombrepiece'];
-
-        $immeubleid = $_POST['immeubleid'];
+        $dateresiliation = $_POST['dateresiliation'];
 
         $agenceid = $_SESSION['agenceid'];
 
-        $sql = "INSERT INTO Bienimmobilier (Nom, Status, LoyerPrix, Type, NombrePiece, ImmeubleID, agenceID) 
-        VALUES ('$nom', '0', '$loyerprix','$type' ,'$nombrepiece', '$immeubleid', '$agenceid')"; 
+        $sql = "UPDATE Contrat SET Resiliation = 1, DateResiliation = '$dateresiliation' WHERE ID = '$id' AND AgenceID = '$agenceid'";
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Bien ajouté avec succes";
+            $_SESSION['flash']="Resiliation contrat ajouté avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de l'ajout";
+            $_SESSION['flash']="Erreur survenue lors de l'ajout de la resiliation du contrat";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

@@ -12,28 +12,88 @@
     {
         $id = $_POST['id'];
 
-        $nom = $_POST['nom'];
+        $date = $_POST['date'];
 
-        $contact = $_POST['contact'];
+        $bienimmobilier = $_POST['bienimmobilier'];
 
-        $email = $_POST['email'];
+        $locataire = $_POST['locataire'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $loyer = $_POST['loyer'];
 
-        $sql = "UPDATE Client SET  Nom='$nom', Contact='$contact', Email='$email' WHERE ID='$id' AND HotelID = '$hotelid'"; 
+        $caution = $_POST['caution'];
 
-        $result = mysqli_query($conn, $sql);
+        $avance = $_POST['avance'];
+
+        $contrat = base64_encode(file_get_contents($_FILES['contrat']['tmp_name']));
+
+        $agenceid = $_SESSION['agenceid'];
+
+        $sql2 = "SELECT * FROM Contrat WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
+
+        $result2 = mysqli_query($conn, $sql2);
+
+        foreach ($result2 as $toto)
+        {
+            $lolo = $toto['BienImmobilierID'];
+        }
+
+        $sql1 = "UPDATE BienImmobilier SET Status = 0 WHERE ID = '$lolo' AND AgenceID = '$agenceid'"; 
+
+        $result1 = mysqli_query($conn, $sql1);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Client modifié avec succes";
 
-            echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
+            $sql = "UPDATE Contrat SET  BienImmobilierID = '$bienimmobilier', LocataireID = '$locataire', Loyer = '$loyer', Caution = '$caution', Avance = '$avance' WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
+
+            $result = mysqli_query($conn, $sql);
+
+            if ($result == true)
+            {
+                $sql1 = "UPDATE BienImmobilier SET Status = 1 WHERE ID = '$bienimmobilier' AND AgenceID = '$agenceid'"; 
+
+                $result1 = mysqli_query($conn, $sql1);
+
+                if ($result1 == true)
+                {
+                    // $sql3 = "UPDATE Location SET BienImmobilierID = '$bienimmobilier', LocataireID = '$locataire' WHERE ContratID = '$id'  AND AgenceID = '$agenceid'"; 
+
+                    // $result3 = mysqli_query($conn, $sql3);
+
+                    // if ($result3 == true)
+                    // {
+
+                        $_SESSION['flash']="Contrat modifié avec succes";
+
+                        echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+                    // }
+                    // else
+                    // {
+                    //    $_SESSION['flash']="Erreur lors de la modification de la location";
+
+                    //    echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+                    //}
+
+                }
+                else
+                {
+                    $_SESSION['flash']="Erreur lors de la modification du statut du bien immobilier";
+
+                    echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+                }
+
+            }
+            else
+            {
+                $_SESSION['flash']="Erreur survenue lors de la modification du contrat";
+
+                echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+            }
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la modification du client";
+            $_SESSION['flash']="Erreur survenue lors de la modification du statut du bien immobilier";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

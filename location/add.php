@@ -6,7 +6,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Enregistrement | Ajouter</title>
+  <title>Location | Ajouter</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -53,15 +53,21 @@ include('../php/check.php');
 
                           include('../connection.php');
 
-                          $hotelid = $_SESSION['hotelid'];
+                          $agenceid = $_SESSION['agenceid'];
 
-                          $sql = "SELECT * FROM Client WHERE HotelID = '$hotelid'"; 
+                          $sql = "SELECT * FROM Bienimmobilier WHERE Bienimmobilier.Status = 0 AND AgenceID = '$agenceid'"; 
 
-                          $client = mysqli_query($conn, $sql);
+                          $bien = mysqli_query($conn, $sql);
 
-                          $sql = "SELECT * FROM Chambre WHERE Chambre.Status = 0 AND HotelID = '$hotelid'";
+                          $sql1 = "SELECT * FROM Locataire WHERE AgenceID = '$agenceid'";
 
-                          $chambre = mysqli_query($conn, $sql);
+                          $locataire = mysqli_query($conn, $sql1);
+
+                           $sql2 = "SELECT Contrat.ID AS ID 
+                            FROM Contrat, Bienimmobilier, Locataire
+                            WHERE Contrat.BienImmobilierID = Bienimmobilier.ID AND Contrat.LocataireID = Locataire.ID AND Contrat.AgenceID = '$agenceid'";
+
+                          $contrat = mysqli_query($conn, $sql2);
 
                           mysqli_close($conn);
                         ?>  
@@ -77,63 +83,41 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="add_process.php">
-    <p class="h4 text-center mb-4">Nouvel Enregistrement</p>
+    <p class="h4 text-center mb-4">Nouvelle Location</p>
     <br>
 
 
     <div class="md-form ">
         
-        <select class="form-control chosen-select" id="clientid" name="clientid" required>
+        <select class="form-control chosen-select" id="bienid" name="bienid" required>
                   <option value=""></option>
-                  <?php foreach($client as $roi){ ?>
+                  <?php foreach($bien as $roi){ ?>
                   <option value="<?php echo $roi['ID'] ?>" data-tokens="<?php echo $roi['Nom'] ?>"><?php echo $roi['Nom'] ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Client</label>
+        <label for="materialFormSubscriptionNameEx">Bien</label>
     </div>
     <br>
 
 
     <div class="md-form ">
         
-        <select class="form-control chosen-select" id="chambreid" name="chambreid" required>
+        <select class="form-control chosen-select" id="locataireid" name="locataireid" required>
                   <option value=""></option>
-                  <?php foreach($chambre as $roit){ ?>
+                  <?php foreach($locataire as $roit){ ?>
                   <option value="<?php echo $roit['ID'] ?>" data-tokens="<?php echo $roit['Nom'] ?>"><?php echo $roit['Nom'] ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Chambre</label>
+        <label for="materialFormSubscriptionNameEx">Locataire</label>
     </div>
     <br>
 
     <!-- Material input type -->
     <div class="md-form">
-        
-        <input type="date" id="datedebut" class="form-control" name="datedebut" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Debut</label>
-    </div>
-    <br>
-
-    <!-- Material input type -->
-    <div class="md-form">
-        
-        <input type="date" id="datefin" class="form-control" name="datefin" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Fin</label>
-    </div>
-    <br>
-
-     <!-- Material input type -->
-     <div class="md-form">
-        <input type="number" min="0" max="24" value="0" id="temps" class="form-control" name="temps" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Temps</label>
-    </div>
-    <br>
-
-    <!-- Material input type -->
-    <div class="md-form">
-        
-        <input type="number" id="montant" class="form-control" name="montant" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Montant</label>
+        <?php foreach($contrat as $roite){ ?>
+          <input type="number" id="contratid" name="contratid" class="form-control" value="<?php echo $roite['ID']?>" tabindex="10" required autofocus />
+        <?php } ?> 
+        <label for="materialFormSubscriptionEmailEx">Contrat</label>
     </div>
     <br>
     

@@ -105,7 +105,7 @@
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
                                 echo "<td>" . $roti['Nom'] . "</td>";
-                                if ($roti['Status'] ==1){
+                                if ($roti['Status'] ==0){
                                 echo "<td>" . 'Libre' . "</td>";
                                 }else{
                                    echo "<td>" . 'Occupé' . "</td>";
@@ -113,9 +113,7 @@
                                 echo "<td>" . $roti['LoyerPrix'] . "</td>";
                                 echo "<td>" . $roti['Type'] . "</td>";
                                 echo "<td>" . $roti['NombrePiece'] . "</td>";
-                                echo "<td>" . $roti['Nomimmeuble'] . "</td>";
-                                
-                                
+                                echo "<td>" . $roti['Nomimmeuble'] . "</td>";                               
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>

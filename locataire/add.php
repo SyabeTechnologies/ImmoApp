@@ -97,7 +97,7 @@ include('../php/check.php');
     <!-- Material input type -->
     <div class="md-form">
         
-        <input type="date" id="datenaissance" class="form-control" name="datenaissance" required autofocus>
+        <input type="date" id="datenaissance" class="form-control" name="datenaissance" value="<?php echo date("Y-m-d") ?>" required autofocus>
         <label for="materialFormSubscriptionEmailEx">Date de naissance</label>
     </div>
     <br>

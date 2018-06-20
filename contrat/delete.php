@@ -12,22 +12,48 @@
     {
         $id = $_GET['id'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $sql= "DELETE FROM Client WHERE ID = '$id' AND HotelID = '$hotelid'"; 
+        $sql= "DELETE FROM Contrat WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash']="Client supprimé avec succes";
+            $sql2 = "SELECT * FROM Location WHERE ContratID = '$id' AND AgenceID = '$agenceid'"; 
 
-            echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+            $result2 = mysqli_query($conn, $sql2);
+
+            foreach ($result2 as $toto)
+            {
+                $lolo = $toto['BienImmobilierID'];
+            }
+
+            $sql1 = "UPDATE BienImmobilier SET Status = 0 WHERE ID = '$lolo' AND AgenceID = '$agenceid'"; 
+
+            $result1 = mysqli_query($conn, $sql1);
+
+            $sql1 = "DELETE FROM Location WHERE ContratID = '$id' AND AgenceID = '$agenceid'"; 
+
+            $result1 = mysqli_query($conn, $sql1);
+
+            if ($result == true)
+            {
+                $_SESSION['flash']="Contrat supprimé avec succes";
+
+                echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+            }
+            else
+            {
+                $_SESSION['flash']="Erreur survenue lors de la supression de la location";
+
+                echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+            }
 
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de la supression du client";
+            $_SESSION['flash']="Erreur survenue lors de la supression du contrat";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

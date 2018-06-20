@@ -69,14 +69,13 @@
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
+                    $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT Enregistrement.*, Client.Nom AS NomClient, Chambre.Nom AS NomChambre, Utilisateur.Nom AS NomUtilisateur
-                            FROM Enregistrement 
-                            INNER JOIN Client ON Enregistrement.ClientID = Client.ID
-                            INNER JOIN Chambre ON Enregistrement.ChambreID = Chambre.ID
-                            INNER JOIN Utilisateur ON Enregistrement.UtilisateurID = Utilisateur.ID
-                            WHERE Enregistrement.HotelID = '$hotelid'"; 
+                    $sql = "SELECT Location.*, Bienimmobilier.Nom AS bien, Locataire.Nom AS nom
+                            FROM Location
+                            INNER JOIN Bienimmobilier ON Location.BienImmobilierID = Bienimmobilier.ID
+                            INNER JOIN Locataire ON Location.LocataireID = Locataire.ID
+                            WHERE Location.AgenceID = '$agenceid'"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -90,17 +89,9 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Client</th>
-                          <th>Chambre</th>
-                          <th>Date</th>
-                          <th>Heure</th>
-                          <th>Debut</th>
-                          <th>Fin</th>
-                          <th>Temps</th>
-                          <th>Montant</th>
-                          <th>Utilisateur</th>
-                          <th>Status</th>
-                          <th>Actions</th>
+                          <th>Bien</th>
+                          <th>Locataire</th>
+                          <th>Contrat</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -109,48 +100,16 @@
                             {
                               foreach($result as $roti) 
                               {
-                                $date = strtotime($roti['Date']); 
-                                $new_date = date('d-m-Y', $date);
-
-                                if ($roti['DateDebut'] == '0000-00-00')
-                                {
-                                  $new_datedebut = "";
-                                }
-                                else
-                                {
-                                  $datedebut = strtotime($roti['DateDebut']); 
-                                  $new_datedebut = date('d-m-Y', $datedebut);
-                                }
-                                
-                                if ($roti['DateFin'] == '0000-00-00')
-                                {
-                                  $new_datefin = "";
-                                }
-                                else
-                                {
-                                  $datefin = strtotime($roti['DateFin']); 
-                                  $new_datefin = date('d-m-Y', $datefin);
-                                }
-
-                                
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
-                                echo "<td>" . $roti['NomClient'] . "</td>";
-                                echo "<td>" . $roti['NomChambre'] . "</td>";
-                                echo "<td>" . $new_date . "</td>";
-                                echo "<td>" . $roti['Heure'] . "</td>";
-                                echo "<td>" . $new_datedebut . "</td>";
-                                echo "<td>" . $new_datefin . "</td>";
-                                echo "<td>" . $roti['Temps'] . "</td>";
-                                echo "<td>" . number_format($roti['Montant'], 0, ',', ' ') . "</td>";
-                                echo "<td>" . $roti['NomUtilisateur'] . "</td>";
-                                if ($roti['Status'] == 1){ echo "<td>Occupée</td>";} else {echo "<td>OK</td>";};
+                                echo "<td>" . $roti['bien'] . "</td>";
+                                echo "<td>" . $roti['nom'] . "</td>";
+                                 echo "<td>" . $roti['ContratID'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
-                          ?>     
-                                <?php if ($roti['Status'] == 1){ ?><a onclick="return confirm('Voulez-vous vraiment liberer cet enregistrement ?')" href="liberer.php?chambreid=<?php echo $roti['ChambreID'] . '&id=' . $roti['ID']; ?>" type="button" class="btn btn-info">Liberer</a> 
-                                <?php } ?>
-                                
-                                </td>         
+                          ?>  
+                            <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                            <a onclick="return confirm('Voulez-vous vraiment supprimer cette activité ?')" href="delete.php?id=<?php echo $roti['ID'];?>" type="button" class="btn btn-danger">Supprimer</a>   
+                        </td>         
                           <?php
                                 echo "</tr>";      
                                                       

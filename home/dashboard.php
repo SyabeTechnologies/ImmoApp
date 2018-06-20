@@ -57,7 +57,7 @@ include('../php/check.php');
                 <h2>Application de Gestion Immobiliere</h2>
                 <br>
                   <div class="row">
-                    <img src="../images/hotel.jpg" style="width:500px;height:400px;">
+                    <img src="../images/immobilier.jpeg" style="width:500px;height:400px;">
                   </div>
                 </center>
                 </section>

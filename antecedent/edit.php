@@ -108,7 +108,7 @@ include('../php/check.php');
     <br>
 <!-- Material input type -->
       <div class="md-form ">  
-        <select class="form-control chosen-select" id="locataire" name="locataire" disable>
+        <select class="form-control chosen-select" id="locataire" name="locataire">
                   <option value=""></option>
                   <?php foreach($result1 as $roiv){ ?>
                   <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Nom'] ?>" <?php foreach ($result as $roie){ if ($roie['LocataireID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Nom'] ?></option>

@@ -17,7 +17,7 @@
 
         $utilisateurid = $_SESSION['userid'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $agenceid = $_SESSION['agenceid'];
 
         if ($newpassword != $newpasswordrepeat)
         {
@@ -27,7 +27,7 @@
         }
         else
         {
-            $sql = "SELECT * FROM Utilisateur WHERE ID = '$utilisateurid' AND HotelID = '$hotelid'"; 
+            $sql = "SELECT * FROM Utilisateur WHERE ID = '$utilisateurid' AND AgenceID = '$agenceid'"; 
 
             $result = mysqli_query($conn, $sql);
 
@@ -44,7 +44,7 @@
             }
             else
             {
-                $sql1 = "UPDATE Utilisateur SET Password = '$newpassword' WHERE ID = '$utilisateurid' AND HotelID = '$hotelid'"; 
+                $sql1 = "UPDATE Utilisateur SET Password = '$newpassword' WHERE ID = '$utilisateurid' AND AgenceID = '$agenceid'"; 
 
                 $result1 = mysqli_query($conn, $sql1);
 
