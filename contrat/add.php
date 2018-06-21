@@ -78,7 +78,7 @@ include('../php/check.php');
                         
 
 <!-- Material form subscription -->
-<form method="post" action="add_process.php">
+<form method="post" action="add_process.php" enctype="multipart/form-data">
     <p class="h4 text-center mb-4">Nouveau Contrat</p>
     <br>
 

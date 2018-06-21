@@ -117,8 +117,8 @@
                                 echo "<td>" . $roti['DateResiliation'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
-                                <a type="button" class="btn btn-xs btn-danger" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
-                                <a type="button" class="btn btn-xs btn-danger" href="resilier.php?id=<?php echo $roti['ID']; ?>">Resilier</a>
+                                <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                                <a type="button" class="btn  btn-danger" href="resilier.php?id=<?php echo $roti['ID']; ?>">Resilier</a>
                                 </td>         
                           <?php
                                 echo "</tr>";      

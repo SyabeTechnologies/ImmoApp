@@ -118,7 +118,7 @@
                                 echo "<td>" . $roti['ContratID'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
-                                <a type="button" class="btn btn-danger" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                                <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
                                 </td>         
                           <?php
                                 echo "</tr>";      

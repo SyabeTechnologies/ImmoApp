@@ -115,7 +115,7 @@ include('../php/check.php');
     <!-- Material input type -->
     <div class="md-form">
         <?php foreach($contrat as $roite){ ?>
-          <input type="number" id="contratid" name="contratid" class="form-control" value="<?php echo $roite['ID']?>" tabindex="10" required autofocus />
+          <input type="text" id="contratid" name="contratid" class="form-control" value="<?php echo $roite['ID']?>" tabindex="10" required autofocus />
         <?php } ?> 
         <label for="materialFormSubscriptionEmailEx">Contrat</label>
     </div>

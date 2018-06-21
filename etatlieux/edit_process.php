@@ -31,7 +31,7 @@
        $agenceid = $_SESSION['agenceid'];
 
         $sql = "UPDATE EtatLieux
-                SET   Date = '$ $date', Type = '$type', Cuisine = '$cuisine', Chambre = '$chambre', SalleEau = '$salleeau', Salon = '$salon', Piece = '$piece', ContratID = '$contratid'
+                SET   Date = '$date', Type = '$type', Cuisine = '$cuisine', Chambre = '$chambre', SalleEau = '$salleeau', Salon = '$salon', Piece = '$piece', ContratID = '$contratid'
                 WHERE ID ='$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);

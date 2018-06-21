@@ -30,7 +30,7 @@
        $agenceid = $_SESSION['agenceid'];
 
         $sql = "INSERT INTO EtatLieux (Date, Type, Cuisine, Chambre, SalleEau, Salon, Piece, ContratID, AgenceID) 
-                VALUES ('$date','$type', '$cuisine', '$chambre', '$salleeau', '$salon', '$Piece', '$contratid', '$agenceid')"; 
+                VALUES ('$date','$type', '$cuisine', '$chambre', '$salleeau', '$salon', '$piece', '$contratid', '$agenceid')"; 
 
         $result = mysqli_query($conn, $sql);
 

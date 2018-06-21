@@ -1,6 +1,5 @@
 <?php 
 session_start(); 
-
 include('../php/check.php');
 ?>
 <!DOCTYPE html>
@@ -17,7 +16,6 @@ include('../php/check.php');
   <link rel="stylesheet" href="../css/font.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />  
   <link rel="stylesheet" href="../js/calendar/bootstrap_calendar.css" type="text/css" />
-
   <link rel="stylesheet" href="../js/chosen/chosen.css" type="text/css" />
 </head>
 <body class="" >

@@ -74,7 +74,7 @@ include('../php/check.php');
 
                          $sql4 = "SELECT Contrat.ID AS ID, Locataire.Nom AS nom
                                 FROM Contrat, Locataire
-                                WHERE Contrat.LocataireID = Locataire.ID AND AgenceID = '$agenceid'";
+                                WHERE Contrat.LocataireID = Locataire.ID AND Contrat.AgenceID = '$agenceid'";
 
                              $result4 = mysqli_query($conn, $sql4);
     
@@ -103,9 +103,15 @@ include('../php/check.php');
 
       <!-- Material input type -->
       <div class="md-form">
-        
-        <input type="text" id="type" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Type']; } ?>" name="type" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Type</label>
+      
+      <select class="form-control chosen-select" id="type" name="type" required autofocus>
+                   <?php foreach($result as $roie){ ?>
+                  <option value="<?php echo $roie['Type'] ?>" selected> <?php echo $roie['Type'] ?> </option>
+                  <?php } ?> 
+                  <option value="ENTREE">ENTREE</option>
+                  <option value="SORTIE">SORTIE</option>
+          </select>  
+       <label for="materialFormSubscriptionEmailEx">Type</label>
     </div>
     <br>
 
@@ -147,9 +153,8 @@ include('../php/check.php');
 
      <div class="md-form ">  
         <select class="form-control chosen-select" id="contrat" name="contrat" disable>
-                  <option value=""></option>
                   <?php foreach($result4 as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['nom'] ?>" <?php foreach ($result as $roie){ if ($roie['ContratID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['nom'] ?></option>
+                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['nom'] ?>" <?php foreach ($result as $roie){ if ($roie['ContratID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['ID'] . " [ " . $roiv['nom'] . " ]" ?></option>
                   <?php } ?> 
         </select>
         <label for="materialFormSubscriptionNameEx">Numero contrat</label>

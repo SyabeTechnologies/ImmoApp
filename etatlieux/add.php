@@ -59,7 +59,7 @@ include('../php/check.php');
 
                              $sql4 = "SELECT Contrat.ID AS ID, Locataire.Nom AS nom
                                 FROM Contrat, Locataire
-                                WHERE Contrat.LocataireID = Locataire.ID AND AgenceID = '$agenceid'";
+                                WHERE Contrat.LocataireID = Locataire.ID AND Contrat.AgenceID = '$agenceid'";
 
                              $result4 = mysqli_query($conn, $sql4);
 
@@ -91,7 +91,10 @@ include('../php/check.php');
     <!-- Material input type -->
     <div class="md-form">
         
-        <input type="text" id="type" class="form-control" name="type" required autofocus>
+         <select class="form-control chosen-select" id="type" name="type" required autofocus>
+                  <option value="ENTREE">ENTREE</option>
+                  <option value="SORTIE">SORTIE</option>
+          </select>
         <label for="materialFormSubscriptionEmailEx">Type</label>
     </div>
     <br>
@@ -135,7 +138,7 @@ include('../php/check.php');
         <select class="form-control chosen-select" id="contratid" name="contratid" required>
                   <option value=""></option>
                   <?php foreach($result4 as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['nom'] ?>"><?php echo $roiv['nom'] ?></option>
+                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['nom'] ?>"><?php echo $roiv['ID'] . " [ " . $roiv['nom'] . " ]" ?></option>
                   <?php } ?> 
         </select>
         <label for="materialFormSubscriptionNameEx">Numero contrat</label>
