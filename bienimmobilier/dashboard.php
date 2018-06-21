@@ -106,9 +106,9 @@
                                 echo "<td>" . $roti['ID'] . "</td>";
                                 echo "<td>" . $roti['Nom'] . "</td>";
                                 if ($roti['Status'] ==0){
-                                echo "<td>" . 'Libre' . "</td>";
+                                echo "<td style='color:green;'>" . 'Libre' . "</td>";
                                 }else{
-                                   echo "<td>" . 'Occupé' . "</td>";
+                                   echo "<td style='color:red;'>" . 'Occupé' . "</td>";
                                 }
                                 echo "<td>" . $roti['LoyerPrix'] . "</td>";
                                 echo "<td>" . $roti['Type'] . "</td>";
