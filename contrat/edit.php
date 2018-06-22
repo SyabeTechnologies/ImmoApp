@@ -67,21 +67,28 @@ include('../php/check.php');
                         
                         include('../connection.php');
 
-                        $sql = "SELECT * FROM Contrat WHERE ID = '$ide' AND AgenceID = '$agenceid'"; 
+                        $sql = "SELECT *
+                          FROM Contrat
+                          WHERE ID = '$ide' AND AgenceID = '$agenceid'"; 
     
                         $result = mysqli_query($conn, $sql);
 
                         $sql = "SELECT BienImmobilier.*, Immeuble.Nom AS NomImmeuble 
                                 FROM BienImmobilier 
                                 INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
-                                WHERE BienImmobilier.AgenceID = '$agenceid'"; 
+                                WHERE BienImmobilier.AgenceID = '$agenceid' AND BienImmobilier.Status = 0"; 
 
                         $bien = mysqli_query($conn, $sql);
 
                         $sql = "SELECT * FROM Locataire WHERE AgenceID = '$agenceid'";
 
                         $locataire= mysqli_query($conn, $sql);
-    
+
+                        $sql2 = "SELECT Contrat.*, BienImmobilier.Nom AS nom
+                          FROM Contrat, BienImmobilier
+                          WHERE Contrat.ID = '$ide' AND Contrat.AgenceID = '$agenceid' AND Contrat.BienImmobilierID = BienImmobilier.ID ";
+
+                        $cont = mysqli_query($conn, $sql2);
                         mysqli_close($conn);
 
                     ?>  
@@ -97,9 +104,11 @@ include('../php/check.php');
     <div class="md-form ">
         
         <select class="form-control chosen-select" id="bienimmobilier" name="bienimmobilier" required>
-                  <option value=""></option>
+                 <?php foreach ($result as $roie){ ?>
+                  <option value="<?php $roie['BienImmobilierID'] ?>" selected><?php foreach ($cont as $contrat){ echo $contrat['nom'];} ?></option>
+                <?php } ?>
                   <?php foreach($bien as $roi){ ?>
-                  <option value="<?php echo $roi['ID'] ?>" <?php foreach ($result as $roie){ if ($roie['BienImmobilierID'] ==  $roi['ID']){echo "selected"; }}?>><?php echo $roi['Nom'] . " [" . $roi['NomImmeuble'] . "]" ?></option>
+                  <option value="<?php echo $roi['ID'] ?>"><?php echo $roi['Nom'] . " [" . $roi['NomImmeuble'] . "]" ?></option>
                   <?php } ?> 
         </select>
         <label for="materialFormSubscriptionNameEx">Bien Immobilier</label>

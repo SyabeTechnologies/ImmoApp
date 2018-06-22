@@ -105,6 +105,7 @@ include('../php/check.php');
       <div class="md-form">
       
       <select class="form-control chosen-select" id="type" name="type" required autofocus>
+                  <option value=""></option>
                    <?php foreach($result as $roie){ ?>
                   <option value="<?php echo $roie['Type'] ?>" selected> <?php echo $roie['Type'] ?> </option>
                   <?php } ?> 
@@ -152,7 +153,8 @@ include('../php/check.php');
     <br>
 
      <div class="md-form ">  
-        <select class="form-control chosen-select" id="contrat" name="contrat" disable>
+        <select class="form-control chosen-select" id="contrat" name="contrat" required>
+                  <option value=""></option>
                   <?php foreach($result4 as $roiv){ ?>
                   <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['nom'] ?>" <?php foreach ($result as $roie){ if ($roie['ContratID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['ID'] . " [ " . $roiv['nom'] . " ]" ?></option>
                   <?php } ?> 

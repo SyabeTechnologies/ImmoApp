@@ -92,6 +92,7 @@ include('../php/check.php');
     <div class="md-form">
         
          <select class="form-control chosen-select" id="type" name="type" required autofocus>
+                  <option value=""></option>
                   <option value="ENTREE">ENTREE</option>
                   <option value="SORTIE">SORTIE</option>
           </select>

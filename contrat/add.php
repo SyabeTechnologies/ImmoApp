@@ -57,7 +57,7 @@ include('../php/check.php');
                           $sql = "SELECT BienImmobilier.*, Immeuble.Nom AS NomImmeuble 
                                   FROM BienImmobilier 
                                   INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
-                                  WHERE BienImmobilier.AgenceID = '$agenceid'"; 
+                                  WHERE BienImmobilier.AgenceID = '$agenceid' AND BienImmobilier.Status = 0"; 
 
                           $bien = mysqli_query($conn, $sql);
 
