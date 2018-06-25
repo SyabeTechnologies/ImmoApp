@@ -16,6 +16,7 @@ include('../php/check.php');
   <link rel="stylesheet" href="../css/font.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />  
   <link rel="stylesheet" href="../js/calendar/bootstrap_calendar.css" type="text/css" />
+  <link rel="stylesheet" href="../js/chosen/chosen.css" type="text/css" />
 </head>
 <body class="" >
 
@@ -53,13 +54,12 @@ include('../php/check.php');
 
                             $agenceid = $_SESSION['agenceid'];
 
-                            $sql5 = "SELECT * FROM EtatLieux WHERE AgenceID = '$agenceid'"; 
-
-                            $result = mysqli_query($conn, $sql5);
-
-                             $sql4 = "SELECT Contrat.ID AS ID, Locataire.Nom AS nom
-                                FROM Contrat, Locataire
-                                WHERE Contrat.LocataireID = Locataire.ID AND Contrat.AgenceID = '$agenceid'";
+                             $sql4 = "SELECT Contrat.ID AS ID, Locataire.Nom AS NomLocataire, BienImmobilier.Nom AS NomBien, Immeuble.Nom AS NomImmeuble
+                                      FROM Contrat
+                                      INNER JOIN Locataire ON Contrat.LocataireID = Locataire.ID
+                                      INNER JOIN BienImmobilier ON Contrat.BienImmobilierID = BienImmobilier.ID
+                                      INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
+                                      WHERE Contrat.AgenceID = '$agenceid'";
 
                              $result4 = mysqli_query($conn, $sql4);
 
@@ -91,7 +91,7 @@ include('../php/check.php');
     <!-- Material input type -->
     <div class="md-form">
         
-         <select class="form-control chosen-select" id="type" name="type" required autofocus>
+         <select class="form-control" id="type" name="type" required autofocus>
                   <option value=""></option>
                   <option value="ENTREE">ENTREE</option>
                   <option value="SORTIE">SORTIE</option>
@@ -139,16 +139,17 @@ include('../php/check.php');
         <select class="form-control chosen-select" id="contratid" name="contratid" required>
                   <option value=""></option>
                   <?php foreach($result4 as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['nom'] ?>"><?php echo $roiv['ID'] . " [ " . $roiv['nom'] . " ]" ?></option>
+                  <option value="<?php echo $roiv['ID'] ?>"><?php echo $roiv['NomLocataire'] . " - " . $roiv['NomImmeuble'] . " - " . $roiv['NomBien'] ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Numero contrat</label>
+        <label for="materialFormSubscriptionNameEx">Contrat</label>
     </div>
     <br>
 
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
+    <br>
 </form>
 <!-- Material form subscription -->
                       
@@ -180,6 +181,8 @@ include('../php/check.php');
   <script src="../js/charts/flot/jquery.flot.resize.js"></script>
   <script src="../js/charts/flot/jquery.flot.grow.js"></script>
   <script src="../js/charts/flot/demo.js"></script>
+
+  <script src="../js/chosen/chosen.jquery.min.js"></script>
 
   <script src="../js/calendar/bootstrap_calendar.js"></script>
   <script src="../js/calendar/demo.js"></script>

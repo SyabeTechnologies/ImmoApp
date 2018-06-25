@@ -99,6 +99,18 @@ include('../php/check.php');
     </div>
     <br>
 
+    <!-- Material input type -->
+    <div class="md-form ">  
+        <select class="form-control chosen-select" id="locataireid" name="locataireid">
+                  <option value=""></option>
+                  <?php foreach($result1 as $roiv){ ?>
+                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Nom'] ?>" <?php foreach ($result as $roie){ if ($roie['LocataireID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Nom'] ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Nom</label>
+    </div>
+    <br>
+
       <!-- Material input type -->
       <div class="md-form">
         
@@ -106,18 +118,7 @@ include('../php/check.php');
         <label for="materialFormSubscriptionEmailEx">Description</label>
     </div>
     <br>
-<!-- Material input type -->
-      <div class="md-form ">  
-        <select class="form-control chosen-select" id="locataire" name="locataire">
-                  <option value=""></option>
-                  <?php foreach($result1 as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['Nom'] ?>" <?php foreach ($result as $roie){ if ($roie['LocataireID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['Nom'] ?></option>
-                  <?php } ?> 
-        </select>
-        <label for="materialFormSubscriptionNameEx">Nom</label>
-        <input type="hidden" name="locataireid" id="locataireid" value="<?php foreach ($result as $roie){ echo $roie['LocataireID']; } ?>">
-    </div>
-    <br>
+
 <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>

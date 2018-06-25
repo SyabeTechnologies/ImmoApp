@@ -64,7 +64,7 @@
 
             $_SESSION['agenceid'] = $req['AgenceID'];
 
-            $_SESSION['statut'] = 1;
+            $_SESSION['statut_immo'] = 1;
 
             echo "<script type='text/javascript'>location.href = 'home/dashboard.php';</script>";
 

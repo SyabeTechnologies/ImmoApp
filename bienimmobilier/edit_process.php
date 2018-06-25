@@ -21,12 +21,14 @@
 
         $type = $_POST['type'];
 
+        $status = $_POST['status'];
+
         $nombrepiece = $_POST['nombrepiece'];
 
         $immeubleid = $_POST['immeubleid'];
 
         $sql = "UPDATE Bienimmobilier SET Nom = '$nom',  LoyerPrix = '$loyerprix',  Type = '$type',
-          NombrePiece ='$nombrepiece', ImmeubleID = '$immeubleid' WHERE ID='$id' AND AgenceID = '$agenceid'"; 
+          NombrePiece ='$nombrepiece', ImmeubleID = '$immeubleid', Status = '$status' WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 

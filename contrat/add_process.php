@@ -23,60 +23,112 @@
 
         $avance = $_POST['avance'];
 
-        $contrat = base64_encode(file_get_contents($_FILES['contrat']['tmp_name']));
+        $location = "uploads/";
+
+        //$contrat = base64_encode(file_get_contents($_FILES['contrat']['tmp_name']));
+
+        $contrat = $_FILES['contrat']['tmp_name'];
+
+        $name = $_FILES['contrat']['name'];
 
         $agenceid = $_SESSION['agenceid'];
 
-        $sql = "INSERT INTO Contrat (Date, LoyerMensuel, Caution, Avance, Contrat, BienImmobilierID, LocataireID, AgenceID) 
-                VALUES ('$date', '$loyer', '$caution', '$avance', '$contrat', '$bienimmobilier','$locataire', '$agenceid')"; 
+        // get locataire name
 
-        $result = mysqli_query($conn, $sql);
+        $selsql = "SELECT * FROM Locataire WHERE ID = '$locataire' AND AgenceID = '$agenceid'";
 
-        $contratid = mysqli_insert_id($conn);
+        $result = mysqli_query($conn, $selsql);
+        
+        $r = mysqli_fetch_assoc($result);
+        
+        $nomlocataire = $r['Nom'];
 
-        if ($result == true)
+        // Free result set
+        mysqli_free_result($result);
+
+        // get the immeuble name
+
+        $sql = "SELECT BienImmobilier.*, Immeuble.Nom AS NomImmeuble 
+                   FROM BienImmobilier 
+                   INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
+                   WHERE BienImmobilier.ID = '$bienimmobilier' AND BienImmobilier.AgenceID = '$agenceid'";
+
+        $resul = mysqli_query($conn, $sql);
+        
+        $row = mysqli_fetch_assoc($resul);
+        
+        $nombien = $row['Nom'];
+
+        $nomimmeuble = $row['NomImmeuble'];
+
+        // Free result set
+        mysqli_free_result($resul);
+
+        // create file name
+
+        $nomfichier = $nomlocataire . " - " . $nomimmeuble . " - " . $nombien . " - " . $date . ".pdf" ;
+
+        $chemin = $location . $nomfichier;
+
+        if(move_uploaded_file($contrat, $chemin))
         {
-            $sql1 = "UPDATE BienImmobilier SET Status = 1 WHERE ID = '$bienimmobilier' AND AgenceID = '$agenceid'"; 
+			$sql = "INSERT INTO Contrat (Date, LoyerMensuel, Caution, Avance, Contrat, BienImmobilierID, LocataireID, AgenceID) 
+                    VALUES ('$date', '$loyer', '$caution', '$avance', '$chemin', '$bienimmobilier','$locataire', '$agenceid')"; 
 
-            $result1 = mysqli_query($conn, $sql1);
+            $result = mysqli_query($conn, $sql);
 
-            if ($result1 == true)
+            $contratid = mysqli_insert_id($conn);
+
+            if ($result == true)
             {
-                //$sql2 = "INSERT INTO Location (BienImmobilierID, LocataireID, ContratID, AgenceID) 
-                //         VALUES ('$bienimmobilier','$locataire', '$contratid', '$agenceid')"; 
+                $sql1 = "UPDATE BienImmobilier SET Status = 1 WHERE ID = '$bienimmobilier' AND AgenceID = '$agenceid'"; 
 
-                //$result2 = mysqli_query($conn, $sql2);
+                $result1 = mysqli_query($conn, $sql1);
 
-                //if ($result2 == true)
-                //{
+                if ($result1 == true)
+                {
+                    //$sql2 = "INSERT INTO Location (BienImmobilierID, LocataireID, ContratID, AgenceID) 
+                    //         VALUES ('$bienimmobilier','$locataire', '$contratid', '$agenceid')"; 
 
-                    $_SESSION['flash']="Contrat ajouté avec succes";
+                    //$result2 = mysqli_query($conn, $sql2);
+
+                    //if ($result2 == true)
+                    //{
+
+                        $_SESSION['flash']="Contrat ajouté avec succes";
+
+                        echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+
+                    //}
+
+                    //else
+                    //{
+                    //    $_SESSION['flash']="Erreur lors de l'insertion de la location";
+
+                    //    echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+                    //}
+                }
+                else
+                {
+                    $_SESSION['flash']="Erreur lors de la modification du statut du bien immobilier";
 
                     echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+                }
 
-                //}
-
-                //else
-                //{
-                //    $_SESSION['flash']="Erreur lors de l'insertion de la location";
-
-                //    echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
-                //}
             }
             else
             {
-                $_SESSION['flash']="Erreur lors de la modification du statut du bien immobilier";
+                $_SESSION['flash']="Erreur survenue lors de l'ajout du contrat";
 
                 echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
             }
-
         }
         else
         {
-            $_SESSION['flash']="Erreur survenue lors de l'ajout du contrat";
+			$_SESSION['flash']="Erreur survenue pendant upload fichier";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
-        }
+		}
 
     }
 

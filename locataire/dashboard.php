@@ -115,10 +115,10 @@
                                echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <!-- Bouton execution modal -->
-                                <a href="#voir<?php echo $roti['ID'];?>" data-toggle="modal" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open">Voir</a>
+                                <a href="#voir<?php echo $roti['ID'];?>" data-toggle="modal" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-eye-open">Voir</a>
                                 <!-- Bouton execution modal -->
-                                <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
-                                <a onclick="return confirm('Voulez-vous vraiment supprimer cette activité ?')" href="delete.php?id=<?php echo $roti['ID'];?>" type="button" class="btn btn-danger">Supprimer</a>
+                                <a type="button" class="btn btn-xs btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                                <a onclick="return confirm('Voulez-vous vraiment supprimer cette activité ?')" href="delete.php?id=<?php echo $roti['ID'];?>" type="button" class="btn btn-xs btn-danger">Supprimer</a>
                                 <!--bouton du processus pour voir-->
                                 <?php include('bouton_voir.php'); ?>
                                 </td>         

@@ -14,7 +14,7 @@
 
         $date = $_POST['date'];
 
-       $description = $_POST['description'];
+        $description = $_POST['description'];
 
         $locataireid = $_POST['locataireid'];
 

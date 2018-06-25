@@ -2,7 +2,7 @@
 
 	ob_start();
 
-	if($_SESSION['statut']!=1)
+	if($_SESSION['statut_immo']!=1)
 	{
 		echo "<script type='text/javascript'>location.href = '../index.php';</script>";
 	}

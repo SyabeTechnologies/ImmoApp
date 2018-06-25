@@ -44,7 +44,6 @@
         if ($result == true)
         {
 
-
             $sql = "UPDATE Contrat SET  BienImmobilierID = '$bienimmobilier', LocataireID = '$locataire', Loyer = '$loyer', Caution = '$caution', Avance = '$avance' WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
             $result = mysqli_query($conn, $sql);

@@ -7,7 +7,7 @@
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Mainenance | Liste</title>
+  <title>Travaux | Liste</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -59,7 +59,7 @@
                         ?>  
                       </center>
                   </section>
-                  <p class="h4 text-center mb-4">Liste des maintenances</p>
+                  <p class="h4 text-center mb-4">Liste des travaux</p>
                   <br>
                   <div class="text-center mt-4">
                     <a href="add.php"><button class="btn btn-outline-info">Ajouter</button></a>
@@ -69,13 +69,13 @@
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
+                    $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT Maintenance.*, Utilisateur.Nom AS NomUtilisateur, Chambre.Nom AS NomChambre
-                            FROM Maintenance 
-                            INNER JOIN Utilisateur ON Maintenance.UtilisateurID = Utilisateur.ID
-                            LEFT OUTER JOIN Chambre ON Maintenance.ChambreID = Chambre.ID
-                            WHERE Maintenance.HotelID = '$hotelid'"; 
+                    $sql = "SELECT  Travaux.*, BienImmobilier.Nom AS NomBien, Partenaire.Nom AS NomPartenaire
+                            FROM Travaux 
+                            INNER JOIN BienImmobilier ON Travaux.BienImmobilierID = BienImmobilier.ID
+                            LEFT OUTER JOIN Partenaire ON Travaux.PartenaireID = Partenaire.ID
+                            WHERE Travaux.AgenceID = '$agenceid'"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -89,12 +89,12 @@
                       <thead>
                         <tr>
                           <th>ID</th>
+                          <th>Date debut</th>
+                          <th>Date fin</th>
                           <th>Description</th>
-                          <th>Date</th>
-                          <th>Heure</th>
-                          <th>Chambre</th>
-                          <th>Utilisateur</th>
-                          <th>Status</th>
+                          <th>Montant</th>
+                          <th>Bien</th>
+                          <th>Partenaire</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -104,16 +104,19 @@
                             {
                               foreach($result as $roti) 
                               {
-                                $date = strtotime($roti['Date']); 
+                                $date = strtotime($roti['DateDebut']); 
                                 $new_date = date('d-m-Y', $date);
+                                $date2 = strtotime($roti['DateFin']); 
+                                $new_date2 = date('d-m-Y', $date2);
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
-                                echo "<td>" . $roti['Description'] . "</td>";
                                 echo "<td>" . $new_date . "</td>";
-                                echo "<td>" . $roti['Heure'] . "</td>";
-                                echo "<td>" . $roti['NomChambre'] . "</td>";
-                                echo "<td>" . $roti['NomUtilisateur'] . "</td>";
-                                if ($roti['Status'] == 1){ echo "<td>A traiter</td>";} else {echo "<td>OK</td>";};
+                                echo "<td>" . $new_date2 . "</td>";
+                                echo "<td>" . $roti['Description'] . "</td>";                                
+                                echo "<td>" . $roti['Montant'] . "</td>";
+                                echo "<td>" . $roti['NomBien'] . "</td>";
+                                echo "<td>" . $roti['NomPartenaire'] . "</td>";
+                               //if ($roti['Status'] == 1){ echo "<td>A traiter</td>";} else {echo "<td>OK</td>";};
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <?php if ($roti['Status'] == 1){ ?><a onclick="return confirm('Voulez-vous vraiment traiter cette maintenance ?')" href="traiter.php?id=<?php echo $roti['ID']; ?>" type="button" class="btn btn-primary">Traiter</a> 

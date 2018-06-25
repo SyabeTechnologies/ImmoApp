@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Maintenance | Modifier</title>
+  <title>Travaux | Modifier</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -64,18 +64,22 @@ include('../php/check.php');
 
                         $ide = $_GET['id'];
 
-                        $hotelid = $_SESSION['hotelid'];
+                        $agenceid = $_SESSION['agenceid'];
                         
                         include('../connection.php');
 
-                        $sql = "SELECT * FROM Maintenance WHERE ID= '$ide' AND HotelID = '$hotelid'"; 
+                        $sql = "SELECT * FROM Travaux WHERE ID= '$ide' AND AgenceID = '$agenceid'"; 
     
                         $result = mysqli_query($conn, $sql);
 
 
-                        $sql1 = "SELECT * FROM Chambre WHERE HotelID = '$hotelid'";
+                        $sql1 = "SELECT * FROM BienImmobilier WHERE AgenceID = '$agencelid'";
 
-                        $chambre = mysqli_query($conn, $sql1);
+                        $bien = mysqli_query($conn, $sql1);
+
+                         $sql2 = "SELECT * FROM Partenaire WHERE AgenceID = '$agencelid'";
+
+                        $partenaire = mysqli_query($conn, $sql2);
     
                         mysqli_close($conn);
 
@@ -83,7 +87,21 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="edit_process.php">
-    <p class="h4 text-center mb-4">Modifier Information Maintenance</p>
+    <p class="h4 text-center mb-4">Modifier Information Travaux</p>
+    <br>
+      <!-- Material input type -->
+      <div class="md-form">
+        
+        <input type="date" id="datedebut" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['DateDebut']; } ?>" name="datedebut" autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date debut</label>
+    </div>
+    <br>
+
+    <div class="md-form">
+        
+        <input type="date" id="datefin" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['DateFin']; } ?>" name="datefin" autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date fin</label>
+    </div>
     <br>
 
       <!-- Material input type -->
@@ -91,6 +109,13 @@ include('../php/check.php');
         
         <input type="text" id="description" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Description']; } ?>" name="description" autofocus>
         <label for="materialFormSubscriptionEmailEx">Description</label>
+    </div>
+    <br>
+
+    <div class="md-form">
+        
+        <input type="text" id="montant" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Montant']; } ?>" name="montant" autofocus>
+        <label for="materialFormSubscriptionEmailEx">Montant</label>
     </div>
     <br>
 
@@ -103,16 +128,27 @@ include('../php/check.php');
     <!-- Material input type -->
     <div class="md-form ">
         
-        <select class="form-control chosen-select" id="chambreid" name="chambreid">
+        <select class="form-control chosen-select" id="bienid" name="bienid">
                   <option value=""></option>
-                  <?php foreach($chambre as $roit){ ?>
-                  <option value="<?php echo $roit['ID'] ?>" data-tokens="<?php echo $roit['Nom'] ?>" <?php foreach ($result as $roie){ if ($roie['ChambreID'] ==  $roit['ID']){echo "selected"; }}?>><?php echo $roit['Nom']; ?></option>
+                  <?php foreach($bien as $roit){ ?>
+                  <option value="<?php echo $roit['ID'] ?>" data-tokens="<?php echo $roit['Nom'] ?>" <?php foreach ($result as $roie){ if ($roie['BienImmobilierID'] ==  $roit['ID']){echo "selected"; }}?>><?php echo $roit['Nom']; ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Chambre</label>
+        <label for="materialFormSubscriptionNameEx">Bien</label>
     </div>
     <br>
 
+    <div class="md-form ">
+        
+        <select class="form-control chosen-select" id="partenaireid" name="partenaireid">
+                  <option value=""></option>
+                  <?php foreach($partenaire as $roit){ ?>
+                  <option value="<?php echo $roit['ID'] ?>" data-tokens="<?php echo $roit['Nom'] ?>" <?php foreach ($result as $roie){ if ($roie['PartenaireID'] ==  $roit['ID']){echo "selected"; }}?>><?php echo $roit['Nom']; ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Partenaire</label>
+    </div>
+    <br>
 
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>

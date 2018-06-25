@@ -14,28 +14,24 @@
 
         $agenceid = $_SESSION['agenceid'];
 
-        $sql= "DELETE FROM Contrat WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
+        $sql2 = "SELECT * FROM Contrat WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
-        $result = mysqli_query($conn, $sql);
+        $result2 = mysqli_query($conn, $sql2);
 
-        if ($result == true)
+        foreach ($result2 as $toto)
         {
-            $sql2 = "SELECT * FROM Location WHERE ContratID = '$id' AND AgenceID = '$agenceid'"; 
+            $lolo = $toto['BienImmobilierID'];
+        }
 
-            $result2 = mysqli_query($conn, $sql2);
+        $sql1 = "UPDATE BienImmobilier SET Status = 0 WHERE ID = '$lolo' AND AgenceID = '$agenceid'"; 
 
-            foreach ($result2 as $toto)
-            {
-                $lolo = $toto['BienImmobilierID'];
-            }
+        $result1 = mysqli_query($conn, $sql1);
 
-            $sql1 = "UPDATE BienImmobilier SET Status = 0 WHERE ID = '$lolo' AND AgenceID = '$agenceid'"; 
+        if ($result1 == true)
+        {
+            $sql = "DELETE FROM Contrat WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
-            $result1 = mysqli_query($conn, $sql1);
-
-            $sql1 = "DELETE FROM Location WHERE ContratID = '$id' AND AgenceID = '$agenceid'"; 
-
-            $result1 = mysqli_query($conn, $sql1);
+            $result = mysqli_query($conn, $sql);
 
             if ($result == true)
             {

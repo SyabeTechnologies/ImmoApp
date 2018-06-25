@@ -12,30 +12,34 @@
     {
         $id = $_POST['id'];
 
+        $datedebut = $_POST['datedebut'];
+
+        $datefin = $_POST['datefin'];
+
         $description = $_POST['description'];
 
-        $chambreid = $_POST['chambreid'];
+        $bienid = $_POST['bienid'];
 
-        $utilisateurid = $_SESSION['userid'];
+        $partenaireid = $_POST['partenaireid'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $agenceid = $_SESSION['agenceid'];
 
-        $sql = "UPDATE Maintenance
-                SET   Description = '$description', ChambreID = '$chambreid', UtilisateurID = '$utilisateurid'
-                WHERE ID = '$id' AND HotelID = '$hotelid'"; 
+        $sql = "UPDATE Travaux
+                SET   DateDebut = '$datedebut', DateFin = '$datefin', Description = '$description', BienImmobilierID = '$bienid', PartenaireID = '$partenaireid'
+                WHERE ID = '$id' AND AgenceID = '$agenceid'"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash'] = "Maintenance modifiée avec succes";
+            $_SESSION['flash'] = "Travaux modifié avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash'] = "Erreur survenue lors de la modification de la Maintenance";
+            $_SESSION['flash'] = "Erreur survenue lors de la modification ";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

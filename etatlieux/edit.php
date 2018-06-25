@@ -17,6 +17,7 @@ include('../php/check.php');
   <link rel="stylesheet" href="../css/font.css" type="text/css" />
   <link rel="stylesheet" href="../css/app.css" type="text/css" />  
   <link rel="stylesheet" href="../js/calendar/bootstrap_calendar.css" type="text/css" />
+  <link rel="stylesheet" href="../js/chosen/chosen.css" type="text/css" />
 </head>
 <body class="" >
 
@@ -72,11 +73,14 @@ include('../php/check.php');
     
                         $result = mysqli_query($conn, $sql);
 
-                         $sql4 = "SELECT Contrat.ID AS ID, Locataire.Nom AS nom
-                                FROM Contrat, Locataire
-                                WHERE Contrat.LocataireID = Locataire.ID AND Contrat.AgenceID = '$agenceid'";
+                        $sql4 = "SELECT Contrat.ID AS ID, Locataire.Nom AS NomLocataire, BienImmobilier.Nom AS NomBien, Immeuble.Nom AS NomImmeuble
+                        FROM Contrat
+                        INNER JOIN Locataire ON Contrat.LocataireID = Locataire.ID
+                        INNER JOIN BienImmobilier ON Contrat.BienImmobilierID = BienImmobilier.ID
+                        INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
+                        WHERE Contrat.AgenceID = '$agenceid'";
 
-                             $result4 = mysqli_query($conn, $sql4);
+                        $result4 = mysqli_query($conn, $sql4);
     
                         mysqli_close($conn);
 
@@ -104,7 +108,7 @@ include('../php/check.php');
       <!-- Material input type -->
       <div class="md-form">
       
-      <select class="form-control chosen-select" id="type" name="type" required autofocus>
+      <select class="form-control" id="type" name="type" required autofocus>
                   <option value=""></option>
                    <?php foreach($result as $roie){ ?>
                   <option value="<?php echo $roie['Type'] ?>" selected> <?php echo $roie['Type'] ?> </option>
@@ -156,10 +160,10 @@ include('../php/check.php');
         <select class="form-control chosen-select" id="contrat" name="contrat" required>
                   <option value=""></option>
                   <?php foreach($result4 as $roiv){ ?>
-                  <option value="<?php echo $roiv['ID'] ?>" data-tokens="<?php echo $roiv['nom'] ?>" <?php foreach ($result as $roie){ if ($roie['ContratID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['ID'] . " [ " . $roiv['nom'] . " ]" ?></option>
+                  <option value="<?php echo $roiv['ID'] ?>" <?php foreach ($result as $roie){ if ($roie['ContratID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['NomLocataire'] . " - " . $roiv['NomImmeuble'] . " - " . $roiv['NomBien'] ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Numero contrat</label>
+        <label for="materialFormSubscriptionNameEx">Contrat</label>
         <input type="hidden" name="contratid" id="contratid" value="<?php foreach ($result as $roie){ echo $roie['ContratID']; } ?>">
     </div>
     <br>
@@ -167,6 +171,7 @@ include('../php/check.php');
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
+    <br>
 </form>
 <!-- Material form subscription -->
 
@@ -198,6 +203,8 @@ include('../php/check.php');
   <script src="../js/charts/flot/jquery.flot.resize.js"></script>
   <script src="../js/charts/flot/jquery.flot.grow.js"></script>
   <script src="../js/charts/flot/demo.js"></script>
+
+  <script src="../js/chosen/chosen.jquery.min.js"></script>
 
   <script src="../js/calendar/bootstrap_calendar.js"></script>
   <script src="../js/calendar/demo.js"></script>

@@ -13,31 +13,33 @@
 
         $description = $_POST['description'];
 
-        $date = $_POST['date'];
+        $montant = $_POST['montant'];
 
-        $heure = date("h:i:s");
+        $datedebut = $_POST['datedebut'];
 
-        $chambreid = $_POST['chambreid'];
+        $datefin = $_POST['datefin'];
 
-        $utilisateurid = $_SESSION['userid'];
+        $bienid = $_POST['bienid'];
 
-        $hotelid = $_SESSION['hotelid'];
+        $partenaireid = $_POST['partenaireid'];
 
-        $sql = "INSERT INTO Maintenance (Description, Date, Heure, ChambreID, UtilisateurID, Status, HotelID) 
-                VALUES ('$description', '$date', '$heure', '$chambreid', '$utilisateurid', 1, '$hotelid')"; 
+        $agenceid = $_SESSION['agenceid'];
+
+        $sql = "INSERT INTO Travaux (DateDebut, DateFin, Description, Montant, BienImmobilierID, PartenaireID, AgenceID) 
+                VALUES ('$datedebut', '$datefin', '$description',  '$montant', '$bienid', '$partenaireid', '$agenceid')"; 
 
         $result = mysqli_query($conn, $sql);
 
         if ($result == true)
         {
-            $_SESSION['flash'] = "Maintenance ajoutée avec succes";
+            $_SESSION['flash'] = "Travaux ajouté avec succes";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
 
         }
         else
         {
-            $_SESSION['flash'] = "Erreur survenue lors de l'ajout de la maintenance";
+            $_SESSION['flash'] = "Erreur survenue lors de l'ajout";
 
             echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
         }

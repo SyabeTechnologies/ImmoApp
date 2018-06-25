@@ -112,15 +112,18 @@
                                 echo "<td>" . $roti['LoyerMensuel'] . "</td>";
                                 echo "<td>" . $roti['Caution'] . "</td>";
                                 echo "<td>" . $roti['Avance'] . "</td>";
-                                echo "<td><a href='" . base64_decode($roti['Contrat']) . ".pdf' target='_blank'>voir</a></td>";
+                                echo "<td><a href='" . $roti['Contrat'] . "' target='_blank'>voir</a></td>";
                                 echo "<td>" . $roti['Resiliation'] . "</td>";
                                 echo "<td>" . $roti['DateResiliation'] . "</td>";
+                                if ($roti['Resilier'] == 0)
+                                {
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
-                                <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
-                                <a type="button" class="btn  btn-danger" href="resilier.php?id=<?php echo $roti['ID']; ?>">Resilier</a>
+                                <a type="button" class="btn btn-xs btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                                <a type="button" class="btn btn-xs  btn-danger" href="resilier.php?id=<?php echo $roti['ID']; ?>">Resilier</a>
                                 </td>         
                           <?php
+                                }
                                 echo "</tr>";      
                                                       
                               } 

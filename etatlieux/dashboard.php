@@ -94,7 +94,7 @@
                           <th>Salle Eau</th>
                           <th>Salon</th>
                           <th>Piece</th>
-                          <th>Numero contrat</th>
+                          <th>Contrat</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -118,7 +118,7 @@
                                 echo "<td>" . $roti['ContratID'] . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
-                                <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
+                                <a type="button" class="btn btn-xs btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
                                 </td>         
                           <?php
                                 echo "</tr>";      

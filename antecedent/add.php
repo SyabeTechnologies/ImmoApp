@@ -51,12 +51,6 @@ include('../php/check.php');
                           }
                             include('../connection.php');
 
-                            $agenceid = $_SESSION['agenceid'];
-
-                            $sql5 = "SELECT * FROM Antecedent WHERE AgenceID = '$agenceid'"; 
-
-                            $result = mysqli_query($conn, $sql5);
-
                              $sql4 = "SELECT * FROM Locataire WHERE AgenceID = '$agenceid'";
 
                              $result4 = mysqli_query($conn, $sql4);
@@ -86,15 +80,7 @@ include('../php/check.php');
     </div>
     <br>
 
-    <!-- Material input type -->
-    <div class="md-form">
-        
-        <input type="text" id="description" class="form-control" name="description" autofocus>
-        <label for="materialFormSubscriptionEmailEx">Description</label>
-    </div>
-    <br>
-
-   <div class="md-form ">  
+    <div class="md-form ">  
         <select class="form-control chosen-select" id="locataireid" name="locataireid" required>
                   <option value=""></option>
                   <?php foreach($result4 as $roiv){ ?>
@@ -102,6 +88,14 @@ include('../php/check.php');
                   <?php } ?> 
         </select>
         <label for="materialFormSubscriptionNameEx">Nom</label>
+    </div>
+    <br>
+
+    <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="text" id="description" class="form-control" name="description" autofocus>
+        <label for="materialFormSubscriptionEmailEx">Description</label>
     </div>
     <br>
 

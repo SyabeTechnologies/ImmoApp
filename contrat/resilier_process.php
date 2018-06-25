@@ -23,9 +23,33 @@
 
         if ($result == true)
         {
-            $_SESSION['flash']="Resiliation contrat ajouté avec succes";
+            $sql3 = "SELECT * FROM Contrat WHERE ID = '$id' AND AgenceID = '$agenceid'";
 
-            echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+            $result3 = mysqli_query($conn, $sql3);
+
+            foreach ($result3 as $toto)
+            {
+                $bien = $toto['BienImmobilierID'];
+            }
+
+            $sql1 = "UPDATE BienImmobilier SET Status = 0 WHERE ID = '$bien' AND AgenceID = '$agenceid'";
+
+            $result1 = mysqli_query($conn, $sql1);
+
+            if ($result1 == true)
+            {
+
+                $_SESSION['flash']="Resiliation contrat ajouté avec succes";
+
+                echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+            
+            }
+            else
+            {
+                $_SESSION['flash']="Erreur survenue lors de la modification du status du bien immobilier";
+
+                echo "<script type='text/javascript'>location.href = 'dashboard.php';</script>";
+            }
 
         }
         else

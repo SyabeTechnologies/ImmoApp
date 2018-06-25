@@ -6,7 +6,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Maintenance| Ajouter</title>
+  <title>Travaux | Ajouter</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -63,27 +63,41 @@ include('../php/check.php');
 
                           include('../connection.php');
 
-                          $hotelid = $_SESSION['hotelid'];
+                          $agenceid = $_SESSION['agenceid'];
 
-                          $sql = "SELECT * FROM Client WHERE HotelID = '$hotelid'"; 
+                          $sql = "SELECT * FROM BienImmobilier WHERE AgenceID = '$agenceid'"; 
 
-                          $client = mysqli_query($conn, $sql);
+                          $bien = mysqli_query($conn, $sql);
 
-                          $sql = "SELECT * FROM Chambre WHERE HotelID = '$hotelid'";
+                          $sql = "SELECT * FROM Partenaire WHERE AgenceID = '$agenceid'";
 
-                          $chambre = mysqli_query($conn, $sql);
+                          $partenaire = mysqli_query($conn, $sql);
 
                           mysqli_close($conn);
                     ?>  
                     
 <!-- Material form subscription -->
 <form method="post" action="add_process.php">
-    <p class="h4 text-center mb-4">Nouveau Maintenance</p>
+    <p class="h4 text-center mb-4">Nouveau travaux</p>
     <br>
 
     <!-- Material input type -->
 .
      <div class="md-form">
+        
+        <input type="date" id="datedebut" class="form-control" name="datefin" value="<?php echo date("Y-m-d") ?>" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date debut</label>
+    </div>
+    <br>
+
+    <div class="md-form">
+        
+        <input type="date" id="datefin" class="form-control" name="datefin" value="<?php echo date("Y-m-d") ?>" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date fin</label>
+    </div>
+    <br>
+
+    <div class="md-form">
         
         <input type="text" id="description" class="form-control" name="description" required autofocus>
         <label for="materialFormSubscriptionEmailEx">Description</label>
@@ -92,24 +106,36 @@ include('../php/check.php');
 
     <div class="md-form">
         
-        <input type="date" id="date" class="form-control" name="date" value="<?php echo date("Y-m-d") ?>" required autofocus>
-        <label for="materialFormSubscriptionEmailEx">Date</label>
+        <input type="number" id="montant" class="form-control" name="montant" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Montant</label>
     </div>
     <br>
 
     <!-- Material input type -->
     <div class="md-form ">
         
-        <select class="form-control chosen-select" id="chambreid" name="chambreid">
+        <select class="form-control chosen-select" id="bienid" name="bienid">
                   <option value=""></option>
-                  <?php foreach($chambre as $roit){ ?>
+                  <?php foreach($bien as $roit){ ?>
                   <option value="<?php echo $roit['ID'] ?>" data-tokens="<?php echo $roit['Nom'] ?>"><?php echo $roit['Nom'] ?></option>
                   <?php } ?> 
         </select>
-        <label for="materialFormSubscriptionNameEx">Chambre</label>
+        <label for="materialFormSubscriptionNameEx">Bien</label>
     </div>
     <br>
 
+     <!-- Material input type -->
+    <div class="md-form ">
+        
+        <select class="form-control chosen-select" id="partenaireid" name="partenaireid">
+                  <option value=""></option>
+                  <?php foreach($partenaire as $roit){ ?>
+                  <option value="<?php echo $roit['ID'] ?>" data-tokens="<?php echo $roit['Nom'] ?>"><?php echo $roit['Nom'] ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Partenaire</label>
+    </div>
+    <br>
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
