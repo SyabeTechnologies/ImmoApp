@@ -115,7 +115,7 @@
                                 echo "<td><a href='" . $roti['Contrat'] . "' target='_blank'>voir</a></td>";
                                 echo "<td>" . $roti['Resiliation'] . "</td>";
                                 echo "<td>" . $roti['DateResiliation'] . "</td>";
-                                if ($roti['Resilier'] == 0)
+                                if ($roti['Resiliation'] == 0 || $roti['Resiliation'] == NULL )
                                 {
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     

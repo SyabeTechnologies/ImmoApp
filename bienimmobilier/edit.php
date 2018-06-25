@@ -130,16 +130,7 @@ include('../php/check.php');
         <label for="materialFormSubscriptionNameEx">Nombre de Piece</label>
        </div>
     <br>
-    
-    <!-- Material input type -->
-    <div class="md-form">
-    <select class="form-control" data-style="btn-new" id="status" name="status">
-      <option value="0" <?php foreach ($result as $roie){ if ($roie['Status'] == 0) {echo "selected"; }} ?> >Libre</option>
-      <option value="1" <?php foreach ($result as $roie){ if ($roie['Status'] == 1) {echo "selected"; }} ?>>Occupée</option>
-    </select>
-        <label for="materialFormSubscriptionEmailEx">Status</label>
-    </div>
-    <br>
+   
     <div class="text-center mt-4">
         <button class="btn btn-outline-info" type="submit" name="submit">Valider<i class="fa fa-paper-plane-o ml-2"></i></button>
     </div>
