@@ -71,9 +71,9 @@
 
                     $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT * 
-                            FROM EtatLieux
-                            WHERE EtatLieux.AgenceID = '$agenceid'"; 
+                    $sql = "SELECT EtatLieux.* , Contrat.Contrat AS Contrat
+                            FROM EtatLieux, Contrat
+                            WHERE EtatLieux.AgenceID = '$agenceid' AND EtatLieux.ContratID = Contrat.ID"; 
 
                     $result = mysqli_query($conn, $sql);
 
@@ -115,7 +115,7 @@
                                 echo "<td>" . $roti['SalleEau'] . "</td>";
                                 echo "<td>" . $roti['Salon'] . "</td>";
                                 echo "<td>" . $roti['Piece'] . "</td>";
-                                echo "<td>" . $roti['ContratID'] . "</td>";
+                               echo "<td><a href='" . $roti['Contrat'] . "' target='_blank'>voir</a></td>";
                                 echo '<td><div class="btn-group btn-group-md">';
                           ?>     
                                 <a type="button" class="btn btn-xs btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>

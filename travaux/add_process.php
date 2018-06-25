@@ -11,13 +11,13 @@
     if(isset($_POST['submit']))
     {
 
-        $description = $_POST['description'];
-
-        $montant = $_POST['montant'];
-
         $datedebut = $_POST['datedebut'];
 
         $datefin = $_POST['datefin'];
+
+        $description = $_POST['description'];
+
+        $montant = $_POST['montant'];        
 
         $bienid = $_POST['bienid'];
 
@@ -26,7 +26,7 @@
         $agenceid = $_SESSION['agenceid'];
 
         $sql = "INSERT INTO Travaux (DateDebut, DateFin, Description, Montant, BienImmobilierID, PartenaireID, AgenceID) 
-                VALUES ('$datedebut', '$datefin', '$description',  '$montant', '$bienid', '$partenaireid', '$agenceid')"; 
+                VALUES ('$datedebut', '$datefin', '$description', '$montant', '$bienid', '$partenaireid', '$agenceid')"; 
 
         $result = mysqli_query($conn, $sql);
 

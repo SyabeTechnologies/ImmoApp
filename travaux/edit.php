@@ -73,13 +73,13 @@ include('../php/check.php');
                         $result = mysqli_query($conn, $sql);
 
 
-                        $sql1 = "SELECT * FROM BienImmobilier WHERE AgenceID = '$agencelid'";
+                        $sql = "SELECT * FROM BienImmobilier WHERE AgenceID = '$agenceid'";
 
-                        $bien = mysqli_query($conn, $sql1);
+                        $bien = mysqli_query($conn, $sql);
 
-                         $sql2 = "SELECT * FROM Partenaire WHERE AgenceID = '$agencelid'";
+                         $sql = "SELECT * FROM Partenaire WHERE AgenceID = '$agenceid'";
 
-                        $partenaire = mysqli_query($conn, $sql2);
+                        $partenaire = mysqli_query($conn, $sql);
     
                         mysqli_close($conn);
 

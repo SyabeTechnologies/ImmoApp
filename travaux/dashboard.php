@@ -116,13 +116,10 @@
                                 echo "<td>" . $roti['Montant'] . "</td>";
                                 echo "<td>" . $roti['NomBien'] . "</td>";
                                 echo "<td>" . $roti['NomPartenaire'] . "</td>";
-                               //if ($roti['Status'] == 1){ echo "<td>A traiter</td>";} else {echo "<td>OK</td>";};
-                                echo '<td><div class="btn-group btn-group-md">';
+                               echo '<td><div class="btn-group btn-group-md">';
                           ?>     
-                                <?php if ($roti['Status'] == 1){ ?><a onclick="return confirm('Voulez-vous vraiment traiter cette maintenance ?')" href="traiter.php?id=<?php echo $roti['ID']; ?>" type="button" class="btn btn-primary">Traiter</a> 
                                 <a type="button" class="btn btn-danger " href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
-                                <?php } ?>
-                                </td>
+                                 </td>
                           <?php
                                 echo "</tr>";      
                                                       

@@ -85,14 +85,14 @@ include('../php/check.php');
 .
      <div class="md-form">
         
-        <input type="date" id="datedebut" class="form-control" name="datefin" value="<?php echo date("Y-m-d") ?>" required autofocus>
+        <input type="date" id="datedebut" class="form-control" name="datedebut" required autofocus>
         <label for="materialFormSubscriptionEmailEx">Date debut</label>
     </div>
     <br>
 
     <div class="md-form">
         
-        <input type="date" id="datefin" class="form-control" name="datefin" value="<?php echo date("Y-m-d") ?>" required autofocus>
+        <input type="date" id="datefin" class="form-control" name="datefin" required autofocus>
         <label for="materialFormSubscriptionEmailEx">Date fin</label>
     </div>
     <br>
@@ -129,8 +129,8 @@ include('../php/check.php');
         
         <select class="form-control chosen-select" id="partenaireid" name="partenaireid">
                   <option value=""></option>
-                  <?php foreach($partenaire as $roit){ ?>
-                  <option value="<?php echo $roit['ID'] ?>" data-tokens="<?php echo $roit['Nom'] ?>"><?php echo $roit['Nom'] ?></option>
+                  <?php foreach($partenaire as $roite){ ?>
+                  <option value="<?php echo $roite['ID'] ?>" data-tokens="<?php echo $roite['Nom'] ?>"><?php echo $roite['Nom'] ?></option>
                   <?php } ?> 
         </select>
         <label for="materialFormSubscriptionNameEx">Partenaire</label>
