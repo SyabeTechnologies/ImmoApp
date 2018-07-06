@@ -7,7 +7,7 @@
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Type Chambre | Liste</title>
+  <title>Paiement Loyer | Liste</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -59,22 +59,39 @@
                         ?>  
                       </center>
                   </section>
-                  <p class="h4 text-center mb-4">Liste des Types de Chambres</p>
+                  <p class="h4 text-center mb-4">Liste des paiements</p>
                   <br>
                   <div class="text-center mt-4">
                     <a href="add.php"><button class="btn btn-outline-info">Ajouter</button></a>
+                    <p></p>
+                    <form method="post" action="miseaniveau_process.php">
+                    <div class="text-center mt-4">
+                      <button class="btn btn-outline-info" type="submit" name="submit">Mise á niveau</button>
+                    </div>
+                    </form>
                   </div>
-                  <br>
                   <?php
 
                     include('../connection.php');
 
-                    $hotelid = $_SESSION['hotelid'];
+                    $agenceid = $_SESSION['agenceid'];
 
-                    $sql = "SELECT * FROM TypeChambre WHERE HotelID = '$hotelid'"; 
+                    $sql = "SELECT PaiementLocataire.*, Contrat.Contrat AS Contrat
+                     FROM PaiementLocataire, Contrat 
+                     WHERE PaiementLocataire.AgenceID = '$agenceid' AND PaiementLocataire.ContratID = Contrat.ID"; 
 
                     $result = mysqli_query($conn, $sql);
 
+                    $locataire = "SELECT Locataire.Nom AS nom
+                      FROM Locataire, Contrat, PaiementLocataire
+                      WHERE Locataire.AgenceID = '$agenceid' AND Contrat.LocataireID = Locataire.ID AND PaiementLocataire.ContratID = Contrat.ID";
+                    
+                    $result1 = mysqli_query($conn, $locataire);
+
+                     foreach($result1 as $rot) 
+                              {
+                                $loc = $rot['nom'];
+                              }
                     mysqli_close($conn);
 
                   ?>
@@ -85,8 +102,15 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Libelle</th>
-                          <th>Actions</th>
+                          <th>Date de paiement</th>
+                          <th>Echeance</th>
+                          <th>Gardiennage</th>
+                          <th>Penalite</th>
+                          <th>Statut</th>
+                          <th>Total</th>
+                          <th>Contrat</th>
+                          <th>Locataire</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -97,11 +121,23 @@
                               {
                                 echo "<tr>";
                                 echo "<td>" . $roti['ID'] . "</td>";
-                                echo "<td>" . $roti['Libelle'] . "</td>";
+                                echo "<td>" . $roti['Date'] . "</td>";
+                                echo "<td>" . $roti['DateEcheance'] . "</td>";
+                                echo "<td>" . $roti['FraisGardiennage'] . "</td>";
+                                echo "<td>" . $roti['Penalite'] . "</td>";
+                                 if ($roti['Status'] ==0){
+                                echo "<td style='color:green;'>" . 'Payé' . "</td>";
+                                }else{
+                                   echo "<td style='color:red;'>" . 'Impayé' . "</td>";
+                                }
+                                echo "<td>" . $roti['Total'] . "</td>";
+                                echo "<td><a href='../contrat/" . $roti['Contrat'] . "' target='_blank'>Voir</a></td>";
+                                echo "<td>" . $loc . "</td>";
                                 echo '<td><div class="btn-group btn-group-md">';
-                          ?>     
-                                <a type="button" class="btn btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
-                                <a onclick="return confirm('Voulez-vous vraiment supprimer cette activité ?')" href="delete.php?id=<?php echo $roti['ID'];?>" type="button" class="btn btn-danger">Supprimer</a>
+                          ?>    
+                                <a href="#penalite<?php echo $roti['ID'];?>" <?php if ($roti['Status'] == 0){echo "disabled='disabled'";}?> data-toggle="modal" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-warning-sign">Penalite</a>
+                                <?php include('bouton_penalite.php'); ?>
+                                <a type="button" class="btn btn-xs btn-warning" href="edit.php?id=<?php echo $roti['ID']; ?>">Modifier</a>
                                 </td>         
                           <?php
                                 echo "</tr>";      

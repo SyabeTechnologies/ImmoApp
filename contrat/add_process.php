@@ -23,6 +23,8 @@
 
         $avance = $_POST['avance'];
 
+        $resiliation = 0;
+
         $location = "uploads/";
 
         //$contrat = base64_encode(file_get_contents($_FILES['contrat']['tmp_name']));
@@ -72,8 +74,8 @@
 
         if(move_uploaded_file($contrat, $chemin))
         {
-			$sql = "INSERT INTO Contrat (Date, LoyerMensuel, Caution, Avance, Contrat, BienImmobilierID, LocataireID, AgenceID) 
-                    VALUES ('$date', '$loyer', '$caution', '$avance', '$chemin', '$bienimmobilier','$locataire', '$agenceid')"; 
+			$sql = "INSERT INTO Contrat (Date, LoyerMensuel, Caution, Avance, Contrat, Resiliation, BienImmobilierID, LocataireID, AgenceID) 
+                    VALUES ('$date', '$loyer', '$caution', '$avance', '$chemin', '$resiliation', '$bienimmobilier','$locataire', '$agenceid')"; 
 
             $result = mysqli_query($conn, $sql);
 

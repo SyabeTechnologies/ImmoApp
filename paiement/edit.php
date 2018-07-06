@@ -7,7 +7,7 @@ include('../php/check.php');
 <html lang="en" class="app">
 <head>  
   <meta charset="utf-8" />
-  <title>Type Chambre | Modifier</title>
+  <title>Paiemment | Modifier</title>
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
@@ -63,13 +63,22 @@ include('../php/check.php');
 
                         $ide = $_GET['id'];
 
-                        $hotelid = $_SESSION['hotelid'];
+                        $agenceid = $_SESSION['agenceid'];
 
                         include('../connection.php');
 
-                        $sql = "SELECT * FROM TypeChambre WHERE ID= '$ide' AND HotelID = '$hotelid'"; 
+                        $sql = "SELECT * FROM PaiementLocataire WHERE ID= '$ide' AND AgenceID = '$agenceid'"; 
     
                         $result = mysqli_query($conn, $sql);
+
+                        $sql4 = "SELECT Contrat.ID AS ID, Locataire.Nom AS NomLocataire, BienImmobilier.Nom AS NomBien, Immeuble.Nom AS NomImmeuble
+                        FROM Contrat
+                        INNER JOIN Locataire ON Contrat.LocataireID = Locataire.ID
+                        INNER JOIN BienImmobilier ON Contrat.BienImmobilierID = BienImmobilier.ID
+                        INNER JOIN Immeuble ON BienImmobilier.ImmeubleID = Immeuble.ID
+                        WHERE Contrat.AgenceID = '$agenceid'";
+
+                        $result4 = mysqli_query($conn, $sql4);
     
                         mysqli_close($conn);
 
@@ -77,15 +86,51 @@ include('../php/check.php');
 
 <!-- Material form subscription -->
 <form method="post" action="edit_process.php">
-    <p class="h4 text-center mb-4">Modifier Information Chambre</p>
+    <p class="h4 text-center mb-4">Modifier Paiement</p>
     <br>
 
     <!-- Material input montant -->
     <div class="md-form ">
         
-        <input type="text" id="libelle" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Libelle']; } ?>" name="libelle" required autofocus>
-        <label for="materialFormSubscriptionNameEx">Nom</label>
+        <input type="date" id="date" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Date']; } ?>" name="date" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date de paiement</label>
         <input type="hidden" name="id" id="id" value="<?php foreach ($result as $roie){ echo $roie['ID']; } ?>">
+    </div>
+    <br>
+
+     <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="date" id="dateechenace" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['DateEcheance']; } ?>" name="dateecheance" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Date echeance</label>
+    </div>
+    <br>
+
+    <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="text" id="frais" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['FraisGardiennage']; } ?>" name="frais" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Frais de gardiennage</label>
+    </div>
+    <br>
+
+    <!-- Material input type -->
+    <div class="md-form">
+        
+        <input type="number" step="any" id="pourcentage" class="form-control" value="<?php foreach ($result as $roie){ echo $roie['Pourcentage']; } ?>" name="pourcentage" required autofocus>
+        <label for="materialFormSubscriptionEmailEx">Pourcentage</label>
+    </div>
+    <br>
+
+    <div class="md-form ">  
+        <select class="form-control chosen-select" id="contrat" name="contrat" required>
+                  <option value=""></option>
+                  <?php foreach($result4 as $roiv){ ?>
+                  <option value="<?php echo $roiv['ID'] ?>" <?php foreach ($result as $roie){ if ($roie['ContratID'] ==  $roiv['ID']){echo "selected"; }}?>><?php echo $roiv['NomLocataire'] . " - " . $roiv['NomImmeuble'] . " - " . $roiv['NomBien'] ?></option>
+                  <?php } ?> 
+        </select>
+        <label for="materialFormSubscriptionNameEx">Contrat</label>
+        <input type="hidden" name="contratid" id="contratid" value="<?php foreach ($result as $roie){ echo $roie['ContratID']; } ?>">
     </div>
     <br>
     <div class="text-center mt-4">

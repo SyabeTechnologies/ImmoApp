@@ -100,35 +100,6 @@
               </li>
             </ul>
           </li>
-
-          <li >
-            <a href="#" class="auto">
-              <span class="pull-right text-muted">
-                <i class="i i-circle-sm-o text"></i>
-                <i class="i i-circle-sm text-active"></i>
-              </span>
-              <i class="i i-stack2">
-              </i>
-              <span class="font-bold">Location</span>
-            </a>
-            <ul class="nav dk">
-              
-              <li  class="active">
-                <ul class="nav dker">
-                  <li class="menu_moi">
-                    <a href="../location/add.php">                                
-                      <span>Creer</span>
-                    </a>
-                  </li>
-                  <li class="menu_moi">
-                    <a href="../location/dashboard.php">                                
-                      <span>Liste</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
           
           <li >
             <a href="#" class="auto">
